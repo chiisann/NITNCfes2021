@@ -1,15 +1,4 @@
-*
-{
-    margin: 0;
-    padding: 0;
-}
-
-html,
-body
-{
-    height: 100vh;
-    font-family: 'Poppins';
-}
+@import url("https://use.typekit.net/jmk3xov.css");
 
 .webgl
 {
@@ -17,4 +6,109 @@ body
     top: 0;
     left: 0;
     outline: none;
+    /* mix-blend-mode: exclusion; */
+}
+
+:root {
+    /* 変数定義 */
+    --spacingTop: 500px;
+    --spacing: 350px;
+  
+    font-family: brandon-grotesque, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+main {
+    /* width: 100vw; */
+    color: #141414;
+
+    z-index: 99;
+    position: absolute;
+    width: 100%;
+    margin: 0px auto;
+    /* padding: 120px 0px; */
+
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+}
+
+h1, h2, h3, blockquote {
+    font-family: brandon-grotesque, sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+/* ---------- HEADER ---------- */
+
+header {
+    position: fixed;
+    width: 100%;
+    height: 15vw;
+    padding: 0%;
+    text-align: center;
+    color: #1D1D1D;
+    display: flex;
+    grid-column: 1 / 12;
+}
+
+header .title{
+    font-size:10vw;
+    margin: 0 3%
+}
+
+
+header .author {
+    font-size: 3.5vw;
+    position: right;
+    margin: 2%;
+    width: 94%;
+    text-align: center;
+    padding-top: 5%;
+}
+
+.author span{
+    margin: 3%;
+}
+
+a{
+    text-decoration: none;
+    color: #1D1D1D;
+}
+
+/* ---------- MAIN ---------- */
+
+section {
+    grid-column: 2 / 11;
+    padding: 1rem;
+    background: var(--dark-bg);
+    font-size: 1.25rem;
+    line-height: 1.5;
+    margin-bottom: var(--spacing);
+}
+
+blockquote {
+    margin: 0;
+    padding: 0;
+    grid-column: 2 / 12;
+    margin-top: var(--spacingTop);
+    margin-bottom: var(--spacing);
+    text-align: center;
+    color: #1D1D1D;
+}
+
+blockquote h2 {
+    font-size: 4rem;
+    display: block;
+    line-height: 1;
+}
+
+blockquote p {
+    font-size: 1.25rem;
+    display: block;
+    line-height: 1;
+}
+
+.left {
+    grid-column: 2 / 12;
 }
