@@ -7,13 +7,16 @@ import { PointLightHelper } from 'three';
 
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 //import { MTLLoader } from './loader/mtl.js';
 // import { OBJLoader } from './loader/obj.js';
 
 //-----------------------------LOADERS-------------------------------
 // Loading
 const textureLoader = new THREE.TextureLoader();
-
+let mtlLoader = new MTLLoader();
+let objLoader = new OBJLoader();
+const gltfLoader = new GLTFLoader();
 
 // Debug
 const gui = new dat.GUI()
@@ -33,7 +36,7 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
-scene.background = new THREE.Color( 0xF7F5D5); // background-color
+scene.background = new THREE.Color( 0xF8F8F8); // background-color
 
 //-----------------------------OBJECTS-------------------------------
 
@@ -73,19 +76,32 @@ SDGs1.position.set(0, -3, 0)
 
 
 // OBJ & MTL
-
-let mtlLoader = new MTLLoader();
-let objLoader = new OBJLoader();
-mtlLoader.load('/objects/face.mtl', (materials) => {
-    materials.preload();
-    objLoader.setMaterials(materials);
-    objLoader.load('/objects/face.obj', (object) => {
-        scene.add(object);
-        object.position.x = 0;
-        object.position.y = -1;
-        object.position.z = -4; 
-    });
+var truck;
+gltfLoader.load('/objects/track.gltf', function(gltf){
+    truck = gltf.scene;
+    for(let i = 0; i < truck.children.length; i++){
+        let mesh = truck.children[i];
+        mesh.castShadow = true;
+    }
+    scene.add(truck);
+    truck.position.set(0, -.5, 0);
+    truck.scale.set(.3, .3, .3);
 });
+
+
+
+//track.position.set(0, -1, 0)
+
+// mtlLoader.load('/objects/face.mtl', (materials) => {
+//     materials.preload();
+//     objLoader.setMaterials(materials);
+//     objLoader.load('/objects/face.obj', (object) => {
+//         scene.add(object);
+//         object.position.x = 0;
+//         object.position.y = -1;
+//         object.position.z = -4; 
+//     });
+// });
 
 
 //-----------------------------LIGHTS-------------------------------
@@ -96,55 +112,55 @@ const spotLight1 = new THREE.SpotLight(0xffa95c,4);
 spotLight1.castShadow = true;
 scene.add(spotLight1)
 
-// const pointLight = new THREE.PointLight(0xffffff, 0.1)
-// pointLight.position.x = 2
-// pointLight.position.y = 3
-// pointLight.position.z = 4
-// scene.add(pointLight)
+const pointLight = new THREE.PointLight(0xffffff, 0.1)
+pointLight.position.x = 2
+pointLight.position.y = 3
+pointLight.position.z = 4
+scene.add(pointLight)
 
-// // Light 2
-// const pointLight2 = new THREE.PointLight(0xebebeb, 2)
-// pointLight2.position.set(-1.2, 1.4, -1.5);
-// pointLight2.intensity = 1;
+// Light 2
+const pointLight2 = new THREE.PointLight(0xebebeb, 2)
+pointLight2.position.set(-1.2, 1.4, -1.5);
+pointLight2.intensity = 1;
 
-// scene.add(pointLight2)
+scene.add(pointLight2)
 
-// const light2 = gui.addFolder('Light 2')
+const light2 = gui.addFolder('Light 2')
 
-// light2.add(pointLight2.position, 'x').min(-6).max(6).step(0.01)
-// light2.add(pointLight2.position, 'y').min(-3).max(3).step(0.01)
-// light2.add(pointLight2.position, 'z').min(-3).max(3).step(0.01)
-// light2.add(pointLight2, 'intensity').min(0).max(10).step(0.01)
+light2.add(pointLight2.position, 'x').min(-6).max(6).step(0.01)
+light2.add(pointLight2.position, 'y').min(-3).max(3).step(0.01)
+light2.add(pointLight2.position, 'z').min(-3).max(3).step(0.01)
+light2.add(pointLight2, 'intensity').min(0).max(10).step(0.01)
 
-// const pointLightHelper2 = new THREE.PointLightHelper(pointLight2, 1)
-// scene.add(pointLightHelper2)
+const pointLightHelper2 = new THREE.PointLightHelper(pointLight2, 1)
+scene.add(pointLightHelper2)
 
 
-// // Light3
-// const pointLight3 = new THREE.PointLight(0xebebeb, 2)
-// pointLight3.position.set(1.2, 0, 0);
-// pointLight3.intensity = 1;
+// Light3
+const pointLight3 = new THREE.PointLight(0xebebeb, 2)
+pointLight3.position.set(1.2, 0, 0);
+pointLight3.intensity = 1;
 
-// scene.add(pointLight3)
+scene.add(pointLight3)
 
-// const light3 = gui.addFolder('Light 3')
+const light3 = gui.addFolder('Light 3')
 
-// light3.add(pointLight3.position, 'x').min(-6).max(6).step(0.01)
-// light3.add(pointLight3.position, 'y').min(-3).max(3).step(0.01)
-// light3.add(pointLight3.position, 'z').min(-3).max(3).step(0.01)
-// light3.add(pointLight3, 'intensity').min(0).max(10).step(0.01)
+light3.add(pointLight3.position, 'x').min(-6).max(6).step(0.01)
+light3.add(pointLight3.position, 'y').min(-3).max(3).step(0.01)
+light3.add(pointLight3.position, 'z').min(-3).max(3).step(0.01)
+light3.add(pointLight3, 'intensity').min(0).max(10).step(0.01)
 
-// const light3Color = {
-//     color: 0xff0000
-// }
+const light3Color = {
+    color: 0xff0000
+}
 
-// light3.addColor(light3Color, 'color')
-//     .onChange(() => {
-//         pointLight3.color.set(light3Color.color)
-//     })
+light3.addColor(light3Color, 'color')
+    .onChange(() => {
+        pointLight3.color.set(light3Color.color)
+    })
 
-// const pointLightHelper3 = new THREE.PointLightHelper(pointLight3, 1)
-// scene.add(pointLightHelper3)
+const pointLightHelper3 = new THREE.PointLightHelper(pointLight3, 1)
+scene.add(pointLightHelper3)
 
 
 
@@ -185,8 +201,14 @@ scene.add(camera)
 //Animation
 function moveCamera(){
     const t = document.body.getBoundingClientRect().top;
-    camera.position.y = t * 0.005;
+    camera.position.y = t * 0.002;
     SDGs1.rotation.y = t * -0.001;
+    // if(truck){
+    //     for(const t of truck.children){
+    //         t.position.y = t * 0.002;
+    //         t.rotation.y += t * -0.001;
+    //     }
+    // }
 }
 
 // fire every time on scroll
@@ -201,6 +223,7 @@ renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 renderer.toneMapping = THREE.ReinhardToneMapping;
 renderer.toneMappingExposure = 2.3;
+renderer.gammaOutput = true;
 
 
 //-----------------------------ANIMATE-------------------------------
@@ -250,11 +273,21 @@ const tick = () =>
     torusKnot.rotation.x = .2 * elapsedTime
     torusKnot.position.z += 0.1 * (sphere.rotation.x-targetY)
 
+    // truck
+    if(truck){
+        for(const t of truck.children){
+            //t.rotation.y = .5 * elapsedTime
+            t.rotation.y += 0.5 * (targetX -t.rotation.y)
+            t.rotation.x += 0.05 * (targetY -t.rotation.x)
+            t.position.z += -0.05 * (targetY -t.rotation.x)
+        }
+    }
+
     // ----- Update lights -----
     spotLight1.position.set(
-        camera.position.x + 10,
-        camera.position.y + 10,
-        camera.position.z + 10
+        camera.position.x + 20,
+        camera.position.y + 20,
+        camera.position.z + 20
     );
 
     // Update Orbital Controls
