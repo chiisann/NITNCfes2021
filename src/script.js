@@ -1,3 +1,6 @@
+//------------------------------------------------------------
+// ThreeJS
+//------------------------------------------------------------
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
@@ -8,14 +11,10 @@ import { PointLightHelper } from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-//import { MTLLoader } from './loader/mtl.js';
-// import { OBJLoader } from './loader/obj.js';
 
 //-----------------------------LOADERS-------------------------------
 // Loading
 const textureLoader = new THREE.TextureLoader();
-let mtlLoader = new MTLLoader();
-let objLoader = new OBJLoader();
 const gltfLoader = new GLTFLoader();
 
 // Debug
@@ -29,7 +28,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }
 
-//-----------------------------OBJECTS-------------------------------
+//-----------------------------SCENE-------------------------------
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -39,7 +38,7 @@ const scene = new THREE.Scene()
 scene.background = new THREE.Color( 0xF8F8F8); // background-color
 
 //-----------------------------OBJECTS-------------------------------
-
+// OBJECTS
 // Sphere
 const geometry = new THREE.SphereBufferGeometry( 0.5, 64, 64 );
 // not tif but png
@@ -55,24 +54,24 @@ sphere.position.set(0, 0, -0.5);
 
 
 // TorusKnot
-const geoTorus1 = new THREE.TorusKnotGeometry( 10, 3, 32, 8, getRandomInt(1, 31), getRandomInt(1, 21) );
-const mateTorus1 = new THREE.MeshNormalMaterial( { color: 0xffff00, wireframe: true } );
-const torusKnot = new THREE.Mesh( geoTorus1, mateTorus1 );
-scene.add( torusKnot );
-torusKnot.scale.set(.1, .1, .1);
-torusKnot.position.set(0, -5, -2);
+// const geoTorus1 = new THREE.TorusKnotGeometry( 10, 3, 32, 8, getRandomInt(1, 31), getRandomInt(1, 21) );
+// const mateTorus1 = new THREE.MeshNormalMaterial( { color: 0xffff00, wireframe: true } );
+// const torusKnot = new THREE.Mesh( geoTorus1, mateTorus1 );
+// scene.add( torusKnot );
+// torusKnot.scale.set(.1, .1, .1);
+// torusKnot.position.set(0, -5, -2);
 
 // SDGs Cube
-const SDGsTexture = textureLoader.load('/textures/SDGs1.png');
-const SDGs1 = new THREE.Mesh(
-    new THREE.BoxGeometry(.5, .5, .5),
-    new THREE.MeshBasicMaterial({
-        map: SDGsTexture,
-        normalMap: normalTexture
-    })
-);
-scene.add(SDGs1);
-SDGs1.position.set(0, -3, 0)
+// const SDGsTexture = textureLoader.load('/textures/SDGs1.png');
+// const SDGs1 = new THREE.Mesh(
+//     new THREE.BoxGeometry(.5, .5, .5),
+//     new THREE.MeshBasicMaterial({
+//         map: SDGsTexture,
+//         normalMap: normalTexture
+//     })
+// );
+// scene.add(SDGs1);
+// SDGs1.position.set(0, -3, 0)
 
 
 // OBJ & MTL
@@ -86,6 +85,20 @@ gltfLoader.load('/objects/track.gltf', function(gltf){
     scene.add(truck);
     truck.position.set(0, -.5, 0);
     truck.scale.set(.3, .3, .3);
+});
+
+var box;
+gltfLoader.load('/objects/box.gltf', function(gltf){
+    box = gltf.scene;
+    for(let i = 0; i < box.children.length; i++){
+        let mesh = box.children[i];
+        mesh.castShadow = true;
+    }
+    scene.add(box);
+    box.position.set(0, -5, 0);
+    box.scale.set(.3, .3, .3);
+
+    //box.children[3].position.set(0, -10, 0);
 });
 
 
@@ -112,55 +125,54 @@ const spotLight1 = new THREE.SpotLight(0xffa95c,4);
 spotLight1.castShadow = true;
 scene.add(spotLight1)
 
-const pointLight = new THREE.PointLight(0xffffff, 0.1)
-pointLight.position.x = 2
-pointLight.position.y = 3
-pointLight.position.z = 4
-scene.add(pointLight)
+// const pointLight = new THREE.PointLight(0xffffff, 0.1)
+// pointLight.position.x = 2
+// pointLight.position.y = 3
+// pointLight.position.z = 4
+// scene.add(pointLight)
 
-// Light 2
-const pointLight2 = new THREE.PointLight(0xebebeb, 2)
-pointLight2.position.set(-1.2, 1.4, -1.5);
-pointLight2.intensity = 1;
+// // Light 2
+// const pointLight2 = new THREE.PointLight(0xebebeb, 2)
+// pointLight2.position.set(-1.2, 1.4, -1.5);
+// pointLight2.intensity = 1;
 
-scene.add(pointLight2)
+// scene.add(pointLight2)
 
-const light2 = gui.addFolder('Light 2')
+// const light2 = gui.addFolder('Light 2')
 
-light2.add(pointLight2.position, 'x').min(-6).max(6).step(0.01)
-light2.add(pointLight2.position, 'y').min(-3).max(3).step(0.01)
-light2.add(pointLight2.position, 'z').min(-3).max(3).step(0.01)
-light2.add(pointLight2, 'intensity').min(0).max(10).step(0.01)
+// light2.add(pointLight2.position, 'x').min(-6).max(6).step(0.01)
+// light2.add(pointLight2.position, 'y').min(-3).max(3).step(0.01)
+// light2.add(pointLight2.position, 'z').min(-3).max(3).step(0.01)
+// light2.add(pointLight2, 'intensity').min(0).max(10).step(0.01)
 
-const pointLightHelper2 = new THREE.PointLightHelper(pointLight2, 1)
-scene.add(pointLightHelper2)
+// const pointLightHelper2 = new THREE.PointLightHelper(pointLight2, 1)
+// scene.add(pointLightHelper2)
 
 
-// Light3
-const pointLight3 = new THREE.PointLight(0xebebeb, 2)
-pointLight3.position.set(1.2, 0, 0);
-pointLight3.intensity = 1;
+// // Light3
+// const pointLight3 = new THREE.PointLight(0xebebeb, 2)
+// pointLight3.position.set(1.2, 0, 0);
+// pointLight3.intensity = 1;
+// //scene.add(pointLight3)
 
-scene.add(pointLight3)
+// const light3 = gui.addFolder('Light 3')
 
-const light3 = gui.addFolder('Light 3')
+// light3.add(pointLight3.position, 'x').min(-6).max(6).step(0.01)
+// light3.add(pointLight3.position, 'y').min(-3).max(3).step(0.01)
+// light3.add(pointLight3.position, 'z').min(-3).max(3).step(0.01)
+// light3.add(pointLight3, 'intensity').min(0).max(10).step(0.01)
 
-light3.add(pointLight3.position, 'x').min(-6).max(6).step(0.01)
-light3.add(pointLight3.position, 'y').min(-3).max(3).step(0.01)
-light3.add(pointLight3.position, 'z').min(-3).max(3).step(0.01)
-light3.add(pointLight3, 'intensity').min(0).max(10).step(0.01)
+// const light3Color = {
+//     color: 0xff0000
+// }
 
-const light3Color = {
-    color: 0xff0000
-}
+// light3.addColor(light3Color, 'color')
+//     .onChange(() => {
+//         pointLight3.color.set(light3Color.color)
+//     })
 
-light3.addColor(light3Color, 'color')
-    .onChange(() => {
-        pointLight3.color.set(light3Color.color)
-    })
-
-const pointLightHelper3 = new THREE.PointLightHelper(pointLight3, 1)
-scene.add(pointLightHelper3)
+// const pointLightHelper3 = new THREE.PointLightHelper(pointLight3, 1)
+// scene.add(pointLightHelper3)
 
 
 
@@ -186,6 +198,7 @@ window.addEventListener('resize', () =>
 })
 
 //-----------------------------CAMERA-------------------------------
+// CAMERA
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.x = 0
@@ -202,7 +215,7 @@ scene.add(camera)
 function moveCamera(){
     const t = document.body.getBoundingClientRect().top;
     camera.position.y = t * 0.002;
-    SDGs1.rotation.y = t * -0.001;
+    //SDGs1.rotation.y = t * -0.001;
     // if(truck){
     //     for(const t of truck.children){
     //         t.position.y = t * 0.002;
@@ -227,6 +240,7 @@ renderer.gammaOutput = true;
 
 
 //-----------------------------ANIMATE-------------------------------
+// ANIMATE
 document.addEventListener('mousemove', onDocumentMouseMove)
 
 let mouseX = 0
@@ -244,11 +258,16 @@ function onDocumentMouseMove(event) {
 }
 
 // sphere action with scroll
-const updateSphere = (event) => {
+const updateByScroll = (event) => {
+    if(truck){
+        for(const t of truck.children){
+            //t.position.y = window.scrollY * 0.001
+        }
+    }
     sphere.position.y = window.scrollY * 0.001
 }
 
-window.addEventListener('scroll', updateSphere);
+window.addEventListener('scroll', updateByScroll);
 
 
 const clock = new THREE.Clock()
@@ -269,9 +288,9 @@ const tick = () =>
     sphere.position.z += -0.05 * (targetY -sphere.rotation.x)
 
     //TorusKnot
-    torusKnot.rotation.y = .2 * elapsedTime
-    torusKnot.rotation.x = .2 * elapsedTime
-    torusKnot.position.z += 0.1 * (sphere.rotation.x-targetY)
+    // torusKnot.rotation.y = .2 * elapsedTime
+    // torusKnot.rotation.x = .2 * elapsedTime
+    // torusKnot.position.z += 0.1 * (sphere.rotation.x-targetY)
 
     // truck
     if(truck){
@@ -280,6 +299,14 @@ const tick = () =>
             t.rotation.y += 0.5 * (targetX -t.rotation.y)
             t.rotation.x += 0.05 * (targetY -t.rotation.x)
             t.position.z += -0.05 * (targetY -t.rotation.x)
+        }
+    }
+
+    // box
+    if(box){
+        for(const t of box.children){
+            //getRandomInt(1, 4)*0.1
+            t.rotation.y = 0.5 * elapsedTime
         }
     }
 
@@ -301,3 +328,24 @@ const tick = () =>
 }
 
 tick()
+
+
+//------------------------------------------------------------
+// GSAP(Animation)
+//------------------------------------------------------------
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.from('header', {opacity: 0, duration: 1, y: -50});
+
+gsap.from('.card p', {
+    opacity: 0, duration: 1, y: 50,
+    scrollTrigger: {
+        trigger: '.card',
+        start: 'center 70%',
+        end: 'center 30%',
+        markers: true,
+        scrub: 1,
+    }
+});

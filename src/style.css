@@ -26,6 +26,11 @@ html, body {
     /* 変数定義 */
     --spacingTop: 500px;
     --spacing: 350px;
+    --spacingMini: 10px;
+    --black: #141414;
+    --yellow: #FEED01;
+    --white: #F8F8F8;
+    --grey: #DFE0E1;
   
     font-family: brandon-grotesque, sans-serif;
     font-weight: 400;
@@ -67,7 +72,7 @@ header {
 
 header .title{
     font-size:10vw;
-    margin: 0 5%;
+    margin: .5vw 0 0 5vw;
     font-weight: 600;
 }
 
@@ -91,7 +96,7 @@ a{
 }
 
 /* responsive for PC */
-@media screen and (min-width: 960px){
+@media screen and (min-width: 768px){
     header .title{
         font-size:5vw;
         padding-top: 1%;
@@ -109,7 +114,6 @@ a{
 section {
     grid-column: 2 / 12;
     padding: 1rem;
-    background: var(--dark-bg);
     font-size: 1.25rem;
     line-height: 1.5;
     margin-bottom: var(--spacing);
@@ -130,7 +134,7 @@ blockquote h2 {
     display: block;
     line-height: 1;
 }
-@media screen and (min-width: 960px){
+@media screen and (min-width: 768px){
     blockquote h2 {
         font-size: 8rem;
     }
@@ -142,13 +146,28 @@ blockquote p {
     line-height: 1;
 }
 
-.left {
-    grid-column: 2 / 12;
-}
-
 /* responsive for PC */
-@media screen and (min-width: 960px){ 
+@media screen and (min-width: 768px){ 
     section {
         grid-column: 2 / 8;
     }
 }
+
+.images{
+    grid-column: 2 / 12;
+    margin-bottom: var(--spacingMini);
+    background-size: contain;
+    background-repeat:  no-repeat; 
+    height: 50vw;
+}
+
+.img1{
+    background-image: url("../static/img/oto_opening.png");
+}
+.img2{
+    background-image: url("../static/img/oto_select.png");
+}
+.img3{
+    background-image: url("../static/img/oto_result.png");
+}
+
