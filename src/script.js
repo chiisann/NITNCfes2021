@@ -3,6 +3,7 @@
 //------------------------------------------------------------
 import './style.css'
 import * as THREE from 'three'
+// import * as THREE from './js/three.module.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 import * as dat from 'dat.gui'
@@ -12,6 +13,11 @@ import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
+import luxy from 'luxy.js';
+
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 //-----------------------------LOADERS-------------------------------
 // Loading
 const textureLoader = new THREE.TextureLoader();
@@ -35,7 +41,11 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
-scene.background = new THREE.Color( 0xF8F8F8); // background-color
+
+// Background Color
+const light = new THREE.Color(0xF8F8F8);
+const dark = new THREE.Color(0xFEED01);
+scene.background = light;
 
 //-----------------------------OBJECTS-------------------------------
 // OBJECTS
@@ -212,6 +222,12 @@ scene.add(camera)
 
 
 //Animation
+
+let tl = gsap.timeline()
+
+tl.to(camera.position, {y: -.3, duration: 1})
+
+
 function moveCamera(){
     const t = document.body.getBoundingClientRect().top;
     camera.position.y = t * 0.002;
@@ -331,21 +347,101 @@ tick()
 
 
 //------------------------------------------------------------
+// LUXY
+//------------------------------------------------------------
+if (navigator.userAgent.indexOf('iPhone') > 0 || navigator.userAgent.indexOf('Android') > 0 && navigator.userAgent.indexOf('Mobile') > 0) {
+    // smartphone
+} else if (navigator.userAgent.indexOf('iPad') > 0 || navigator.userAgent.indexOf('Android') > 0) {
+    // tablet
+} else {
+    // PC
+    luxy.init({
+        wrapper: '#luxy',
+        targets : '.luxy-el',
+        wrapperSpeed:  0.3
+    });
+}
+luxy.init({
+    wrapper: '#luxy',
+    targets : '.luxy-el',
+    wrapperSpeed:  0.3
+});
+// https://reiwinn-web.net/2020/12/25/luxy/
+
+//------------------------------------------------------------
 // GSAP(Animation)
 //------------------------------------------------------------
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-gsap.registerPlugin(ScrollTrigger);
 
-gsap.from('header', {opacity: 0, duration: 1, y: -50});
+gsap.from('header', {
+    opacity: 0, duration: 1, y: -50, ease: 'Power2.easeInOut'
+});
 
-gsap.from('.card p', {
-    opacity: 0, duration: 1, y: 50,
+gsap.to('blockquote .bl-wrap',{
+    left: "100%", 
+    width: "150%",
+    ease: 'Power1.easeInOut',
+    scrollTrigger: {
+        trigger: 'blockquote .bl-wrap',
+        start: 'top 60%',
+        markers: true,
+    }
+});
+
+gsap.to('blockquote h2', {
+    opacity: 1, 
+    delay: 0.1,
+    scrollTrigger: {
+        trigger: 'blockquote .bl-wrap',
+        start: 'top 60%',
+    }
+});
+
+gsap.from('.card', {
+    opacity: 0, duration: 1, y: 50,ease: 'Power2.easeOut',
     scrollTrigger: {
         trigger: '.card',
-        start: 'center 70%',
-        end: 'center 30%',
+        start: 'top 60%',
+        end: 'top 40%',
         markers: true,
         scrub: 1,
     }
 });
+
+// Background Animation
+gsap.from('.image-container', {
+    backgroundColor: "rgba( 254, 237, 1, 0)", ease: 'Power3.easeOut',
+    //delay: 0.1,
+    scrollTrigger: {
+        trigger: '.image-container',
+        start: 'top 80%',
+        end: 'bottom 20%',
+        scrub: 1,
+    }
+});
+
+// ScrollTrigger.create({
+//     trigger: ".image-container",
+//     start: 'top 80%',
+//     end: 'bottom 20%',
+//     scrub: 1,
+//     delay: 1,
+//     onEnter: self => {
+        
+//     }
+// })
+
+// ScrollTrigger.create({
+//     duration: 1,
+//     trigger: ".image-container",
+//     start: 'top 50%',
+//     end: 'bottom bottom-=300px',
+//     scrub: 1,
+//     onToggle: self => {
+//         if(scene.background==dark){
+//             scene.background = light;
+//         }else{
+//             scene.background = dark;
+//         }
+//     },
+//     ease:  'Power2.easeOut',
+// });

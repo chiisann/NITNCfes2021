@@ -1,10 +1,10 @@
-@import url("https://use.typekit.net/jmk3xov.css");
+/* @import url("https://use.typekit.net/jmk3xov.css"); */
+@import url("https://use.typekit.net/nzn5okx.css");
 html, body {
     margin: 0px;
     padding: 0px;
     width: 100%;
 }
-
 
 .webgl
 {
@@ -38,8 +38,7 @@ html, body {
 }
 
 main {
-    /* width: 100vw; */
-    color: #141414;
+    color: var(--black);
 
     z-index: 99;
     position: absolute;
@@ -47,15 +46,21 @@ main {
     margin: 0px auto;
     /* padding: 120px 0px; */
 
+    /* display: grid;
+    grid-template-columns: repeat(12, 1fr); */
+}
+
+#luxy{
     display: grid;
     grid-template-columns: repeat(12, 1fr);
 }
 
 h1, h2, h3, blockquote {
-    font-family: brandon-grotesque, sans-serif;
     font-weight: 600;
     font-style: normal;
 }
+
+
 
 /* ---------- HEADER ---------- */
 
@@ -68,12 +73,13 @@ header {
     color: #1D1D1D;
     display: flex;
     grid-column: 1 / 12;
+    z-index: 100;
 }
 
-header .title{
+header .logo{
     font-size:10vw;
     margin: .5vw 0 0 5vw;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 
@@ -97,7 +103,7 @@ a{
 
 /* responsive for PC */
 @media screen and (min-width: 768px){
-    header .title{
+    header .logo{
         font-size:5vw;
         padding-top: 1%;
     }
@@ -111,39 +117,39 @@ a{
 
 /* ---------- MAIN ---------- */
 
+.title{
+    margin: 0;
+    padding: 0;
+    grid-column: 2 / 12;
+    margin-top: var(--spacingTop);
+    margin-bottom: var(--spacingTop);
+    text-align: center;
+    color: var(--black);
+}
+
+.title h1{
+    font-size: 6rem;
+    display: block;
+    line-height: 1;
+    font-weight: 900;
+}
+
+@media screen and (min-width: 768px){
+    .title h1 {
+        font-size: 8rem;
+    }
+}
+
 section {
     grid-column: 2 / 12;
     padding: 1rem;
     font-size: 1.25rem;
     line-height: 1.5;
+    margin-top: var(--spacing);
     margin-bottom: var(--spacing);
-}
-
-blockquote {
-    margin: 0;
-    padding: 0;
-    grid-column: 2 / 12;
-    margin-top: var(--spacingTop);
-    margin-bottom: var(--spacing);
-    text-align: center;
-    color: #1D1D1D;
-}
-
-blockquote h2 {
-    font-size: 5rem;
-    display: block;
-    line-height: 1;
-}
-@media screen and (min-width: 768px){
-    blockquote h2 {
-        font-size: 8rem;
-    }
-}
-
-blockquote p {
-    font-size: 1.25rem;
-    display: block;
-    line-height: 1;
+    font-family: fot-tsukuardgothic-std, sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 /* responsive for PC */
@@ -153,11 +159,83 @@ blockquote p {
     }
 }
 
-.images{
+blockquote {
+    margin: 0;
+    padding: 0;
     grid-column: 2 / 12;
-    margin-bottom: var(--spacingMini);
+    text-align: left;
+    color: var(--black);
+    position: relative;
+    overflow: hidden;
+}
+
+blockquote .bl-wrap{
+    position: absolute;
+    width: 100%;
+    height: 80%;
+    left: -100%;
+    z-index: 1;
+    background-color: var(--yellow);
+    opacity: 1;
+}
+
+blockquote h2{
+    font-style: italic;
+    font-size: 2rem;
+    line-height: 1;
+    opacity: 0;
+}
+
+@media screen and (min-width: 768px){
+    blockquote h2 {
+        font-size: 5rem;
+    }
+}
+
+blockquote p {
+    font-size: 1.25rem;
+    display: block;
+    line-height: 1;
+}
+
+.image-container {
+    grid-column: 1 / 13;
+    background-color: rgba( 254, 237, 1, 1);
+    padding-top: 10vw;
+    padding-bottom: 30vw;
+    height: 150vw;
+    position: relative;
+    overflow: hidden;
+}
+
+.image-container .texts{
+    position: absolute;
+    color: var(--white);
+    display: inline-block;
+    font-size: 7vw;
+    font-weight: 700;
+    font-style: italic;
+    z-index: 100;
+}
+
+.text1{
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.image-container-center{
+    text-align: center;
+    margin: 5vw;
+    font-weight: bold;
+}
+
+
+.images{
+    display: block;
+    margin-bottom: 5vw;
     background-size: contain;
-    background-repeat:  no-repeat; 
+    background-repeat: no-repeat; 
     height: 50vw;
 }
 
@@ -171,3 +249,25 @@ blockquote p {
     background-image: url("../static/img/oto_result.png");
 }
 
+.block{
+    background-color: var(--yellow);
+    height: 30vw;
+    display: block;
+    grid-column: 1/13;
+}
+
+
+/* ---------- FOOTER ---------- */
+footer {
+    grid-column: 1/13;
+    height: 8vw; 
+    text-align: center;
+    padding: 10vw 0;
+    background-color:white;
+}
+
+.footer-text {
+    color: var(--black);
+    font-size: 2.5vw;
+    font-weight: 700;
+}
