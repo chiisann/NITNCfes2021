@@ -24,9 +24,9 @@ html, body {
 
 :root {
     /* 変数定義 */
-    --spacingTop: 500px;
-    --spacing: 350px;
-    --spacingMini: 10px;
+    /* --spacingTop: 500px; */
+    --spacingTop: 50vw;
+    --spacing: 35vw;
     --black: #141414;
     --yellow: #FEED01;
     --white: #F8F8F8;
@@ -101,6 +101,24 @@ a{
     color: #1D1D1D;
 }
 
+.btn{
+position: relative;
+display: inline-block;
+padding: 0rem 1rem;
+cursor: pointer;
+-webkit-transition: all 0.3s;
+transition: all 0.3s;
+}
+
+a.btn-border {
+background: var(--yellow);
+}
+
+a.btn-border:hover {
+background: var(--white);
+}
+
+
 /* responsive for PC */
 @media screen and (min-width: 768px){
     header .logo{
@@ -121,7 +139,7 @@ a{
     margin: 0;
     padding: 0;
     grid-column: 2 / 12;
-    margin-top: var(--spacingTop);
+    margin-top: 100vw;
     margin-bottom: var(--spacingTop);
     text-align: center;
     color: var(--black);
@@ -135,6 +153,9 @@ a{
 }
 
 @media screen and (min-width: 768px){
+    .title{
+        margin-top: var(--spacingTop);
+    }
     .title h1 {
         font-size: 8rem;
     }
