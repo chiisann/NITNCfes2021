@@ -3,28 +3,24 @@
 //------------------------------------------------------------
 import './style.css'
 import * as THREE from 'three'
-// import * as THREE from './js/three.module.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-
-import * as dat from 'dat.gui'
+// import * as dat from 'dat.gui'
 import { PointLightHelper, SphereBufferGeometry } from 'three';
 
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
-import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import luxy from 'luxy.js';
-
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
+
 //-----------------------------LOADERS-------------------------------
 // Loading
 const textureLoader = new THREE.TextureLoader();
 const gltfLoader = new GLTFLoader();
 
 // Debug
-const gui = new dat.GUI()
+// const gui = new dat.GUI()
 
 //-----------------------------FUNCTIONS-------------------------------
 // Random
@@ -45,7 +41,7 @@ const scene = new THREE.Scene()
 // Background Color
 const light = new THREE.Color(0xF8F8F8);
 const dark = new THREE.Color(0xFEED01);
-scene.background = light;
+//scene.background = light;
 
 //-----------------------------OBJECTS-------------------------------
 // OBJECTS
@@ -59,7 +55,7 @@ const geometry = new THREE.SphereBufferGeometry( 0.5, 64, 64 );
 // material.normalMap = normalTexture;
 // material.color = new THREE.Color(0xF8F8F8);
 const meshParams = {
-    color: '#ff00ff',
+    color: '#FEED01',
     metalness: .58,
     emissive: '#000000',
     roughness: .18,
@@ -67,7 +63,7 @@ const meshParams = {
 // we create our material outside the loop to keep it more performant
 const material = new THREE.MeshPhysicalMaterial(meshParams);
 const sphere = new THREE.Mesh(geometry,material)
-scene.add(sphere)
+//scene.add(sphere)
 sphere.position.set(0, 0, -0.5);
 sphere.scale.set(0.3, 0.3, 0.3);
 
@@ -84,9 +80,7 @@ sphere.scale.set(0.3, 0.3, 0.3);
 // SDGs1.position.set(0, -3, 0)
 
 
-// OBJ & MTL
-
-var japan;
+let japan;
 gltfLoader.load('/objects/japan.gltf', function(gltf){
     japan = gltf.scene;
     for(let i = 0; i < japan.children.length; i++){
@@ -94,9 +88,46 @@ gltfLoader.load('/objects/japan.gltf', function(gltf){
         mesh.castShadow = true;
     }
     scene.add(japan);
-    japan.position.set(0, -.3, 0);
+    japan.position.set(0, 0, 0);
     japan.rotation.set(Math.PI/6, Math.PI/6, 0);
     japan.scale.set(.2, .2, .2);
+
+    // GSAP Animation
+    for(let i=0;i<=6;i++){
+        let x, z;
+        if(i<3){
+            x = -1 + i*0.6;
+            z = 11;
+        }else if(3<=i && i<6){
+            x = -1 + (i-3)*0.6;
+            z = 12;
+        }else{
+            x = -1 + 0.6;
+            z = 13;
+        }
+        tl1.to(japan.children[i].position, {
+            x: x, y: 0, z: z,
+            duration:1,
+            scrollTrigger: {
+                trigger: ".title h1",
+                start: "top 50%",
+                end: "top top",
+                toggleActions: "restart none reverse none",
+                scrub: 1,
+            },
+        })
+        tl1.to(japan.children[i].rotation, {
+            x: -Math.PI/3, z: 0, y: 0, 
+            duration:1,
+            scrollTrigger: {
+                trigger: ".title h1",
+                start: "top 50%",
+                end: "top top",
+                toggleActions: "restart none reverse none",
+                scrub: 1,
+            },
+        })
+    }
 });
 
 var truck;
@@ -121,8 +152,6 @@ gltfLoader.load('/objects/box.gltf', function(gltf){
     scene.add(box);
     box.position.set(0, -5, 0);
     box.scale.set(.3, .3, .3);
-
-    //box.children[3].position.set(0, -10, 0);
 });
 
 //track.position.set(0, -1, 0)
@@ -140,20 +169,21 @@ gltfLoader.load('/objects/box.gltf', function(gltf){
 
 
 //-----------------------------LIGHTS-------------------------------
-// const hemiLight = new THREE.HemisphereLight( 0xffeeb1, 0x080820, 4 );
-// scene.add( hemiLight );
+const hemiLight = new THREE.HemisphereLight( 0xffeeb1, 0x080820, 3 );
+scene.add( hemiLight );
 
-const ambientLight = new THREE.AmbientLight('#2900af', 1);
-scene.add(ambientLight);
+// const ambientLight = new THREE.AmbientLight('#2900af', 1);
+// const ambientLight = new THREE.AmbientLight('#FEED01', 1);
+// scene.add(ambientLight);
 
 // const spotLight1 = new THREE.SpotLight(0xffa95c,4);
-const spotLight1 = new THREE.SpotLight('#F7FF00', 3, 1000);
+const spotLight1 = new THREE.SpotLight('#F8F8F8', 3, 1000);
 spotLight1.castShadow = true;
 scene.add(spotLight1)
 const spotLight1Helper = new THREE.SpotLightHelper(spotLight1, 1)
 scene.add(spotLight1Helper)
 
-const rectLight = new THREE.RectAreaLight('#0077ff', 2, 2000, 2000);
+const rectLight = new THREE.RectAreaLight('#0077ff', 1.5, 2000, 2000);
 rectLight.position.set(5, 50, 50);
 rectLight.lookAt(0, 0, 0);
 scene.add(rectLight);
@@ -163,59 +193,6 @@ pointLight.position.set(5, 50, 50);
 scene.add(pointLight);
 const pointH = new THREE.PointLightHelper(pointLight, 1)
 scene.add(pointH)
-
-// const pointLight = new THREE.PointLight(0xffffff, 0.1)
-// pointLight.position.x = 2
-// pointLight.position.y = 3
-// pointLight.position.z = 4
-// scene.add(pointLight)
-
-// // Light 2
-// const pointLight2 = new THREE.PointLight(0xC2BC2E, 2)
-// pointLight2.position.set(0, 3, 0);
-// pointLight2.intensity =3;
-// pointLight2.castShadow = true;
-
-// let cameraHelper = new THREE.CameraHelper(pointLight2.shadow.camera);
-// scene.add(cameraHelper);
-
-// const light2 = gui.addFolder('Light 2')
-
-// light2.add(pointLight2.position, 'x').min(-6).max(6).step(0.01)
-// light2.add(pointLight2.position, 'y').min(-3).max(3).step(0.01)
-// light2.add(pointLight2.position, 'z').min(-3).max(3).step(0.01)
-// light2.add(pointLight2, 'intensity').min(0).max(10).step(0.01)
-
-// const pointLightHelper2 = new THREE.PointLightHelper(pointLight2, 1)
-// scene.add(pointLightHelper2)
-
-
-// // Light3
-// const pointLight3 = new THREE.PointLight(0xebebeb, 2)
-// pointLight3.position.set(1.2, 0, 0);
-// pointLight3.intensity = 1;
-// //scene.add(pointLight3)
-
-// const light3 = gui.addFolder('Light 3')
-
-// light3.add(pointLight3.position, 'x').min(-6).max(6).step(0.01)
-// light3.add(pointLight3.position, 'y').min(-3).max(3).step(0.01)
-// light3.add(pointLight3.position, 'z').min(-3).max(3).step(0.01)
-// light3.add(pointLight3, 'intensity').min(0).max(10).step(0.01)
-
-// const light3Color = {
-//     color: 0xff0000
-// }
-
-// light3.addColor(light3Color, 'color')
-//     .onChange(() => {
-//         pointLight3.color.set(light3Color.color)
-//     })
-
-// const pointLightHelper3 = new THREE.PointLightHelper(pointLight3, 1)
-// scene.add(pointLightHelper3)
-
-
 
 //-----------------------------SIZES-------------------------------
 const sizes = {
@@ -259,53 +236,25 @@ camera.position.y = 0
 camera.position.z = 2
 scene.add(camera)
 
-// Controls
-// const controls = new OrbitControls(camera, renderer.domElement)
-// controls.userPan = false;
-// controls.userPanSpeed = 0.0;
-// controls.enableDamping = true;
-// controls.dampingFactor = 0.1;
-// controls.enableZoom = false;
-// let cameraTarget = new THREE.Vector3( 0, 0, 0 )
-// controls.target = cameraTarget;
-
-//  controls.enableZoom = false;
-//  controls.autoRotate = true
-
-// controls.minPolarAngle = 0;
-// controls.maxPolarAngle = 0;
-// controls.minAzimuthAngle = - Math.PI;
-// controls.maxAzimuthAngle = - Math.PI;
-
-
-
-
 //Animation
-
-let tl = gsap.timeline()
-tl.to(camera.position, {y: -.3, duration: 1})
-
-
-function moveCamera(){
-    const t = document.body.getBoundingClientRect().top;
-    camera.position.y = t * 0.002;
-    //controls.target.y = camera.position.y;
-    //SDGs1.rotation.y = t * -0.001;
-    // if(truck){
-    //     for(const t of truck.children){
-    //         t.position.y = t * 0.002;
-    //         t.rotation.y += t * -0.001;
-    //     }
-    // }
-}
+// function moveCamera(){
+//     const t = document.body.getBoundingClientRect().top;
+//     camera.position.y = t * 0.002;
+//     controls.target.y = camera.position.y;
+//     SDGs1.rotation.y = t * -0.001;
+//     if(truck){
+//         for(const t of truck.children){
+//             t.position.y = t * 0.002;
+//             t.rotation.y += t * -0.001;
+//         }
+//     }
+// }
 
 // fire every time on scroll
-document.body.onscroll = moveCamera
+//document.body.onscroll = moveCamera
 
 
-
-
-//-----------------------------ANIMATE-------------------------------
+//-----------------------------ANIMATION-------------------------------
 // ANIMATE
 document.addEventListener('mousemove', onDocumentMouseMove)
 
@@ -337,7 +286,6 @@ function onDocumentMouseMove(event) {
 
 
 const clock = new THREE.Clock()
-
 const tick = () =>
 {
     targetX = mouseX * 0.001
@@ -346,24 +294,22 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
 
     // ----- Update objects -----
+    // sphere
+    // sphere.rotation.y = .5 * elapsedTime
+    // sphere.rotation.y += 0.5 * (targetX -sphere.rotation.y)
+    // sphere.rotation.x += 0.05 * (targetY -sphere.rotation.x)
+    // sphere.position.z += -0.05 * (targetY -sphere.rotation.x)
 
     // japan
-    sphere.rotation.y = .5 * elapsedTime
-    sphere.rotation.y += 0.5 * (targetX -sphere.rotation.y)
-    sphere.rotation.x += 0.05 * (targetY -sphere.rotation.x)
-    sphere.position.z += -0.05 * (targetY -sphere.rotation.x)
-
-    //TorusKnot
-    // torusKnot.rotation.y = .2 * elapsedTime
-    // torusKnot.rotation.x = .2 * elapsedTime
-    // torusKnot.position.z += 0.1 * (sphere.rotation.x-targetY)
-
-    // truck
-    if(japan){
-        japan.rotation.y = .05 * elapsedTime
-        //japan.rotation.x += 0.05 * (targetY -japan.rotation.x)
-        japan.rotation.y += 0.5 * (targetX -japan.rotation.y)
-        //japan.position.z += -0.05 * (targetY -japan.rotation.x)
+    if(camera.position.y>-.3){
+        if(japan){
+            // japan.rotation.y = .05 * elapsedTime
+            japan.rotation.x += 0.05 * (Math.PI/3- targetY -japan.rotation.x)
+            japan.rotation.y += 0.5 * (targetX -japan.rotation.y)
+            // japan.position.z += -0.01 * (targetY -japan.rotation.x)
+            // japan.position.y += 0.01 * (targetY -japan.rotation.x)
+        }
+        //console.log(camera.position.y)
     }
 
     // box
@@ -425,7 +371,7 @@ if (navigator.userAgent.indexOf('iPhone') > 0 || navigator.userAgent.indexOf('An
     luxy.init({
         wrapper: '#luxy',
         targets : '.luxy-el',
-        wrapperSpeed:  0.2
+        wrapperSpeed:  0.15
     });
 }
 // luxy.init({
@@ -439,34 +385,43 @@ if (navigator.userAgent.indexOf('iPhone') > 0 || navigator.userAgent.indexOf('An
 // GSAP(Animation)
 //------------------------------------------------------------
 
-
-
+gsap.from('body',{
+    backgroundColor: "rgba( 254, 237, 1, 1)", ease: 'Power3.easeOut',
+    scrollTrigger: {
+        markers: true,
+        trigger: ".title h1",
+        start: "top 50%",
+        end: "top top",
+        toggleActions: "restart none reverse none",
+        scrub: 1,
+    },
+})
 gsap.from('header', {
     opacity: 0, duration: 1, y: -50, ease: 'Power2.easeInOut'
 });
 
-// let tl1 = gsap.timeline()
-// tl1.to(camera.position, {y: -.2, duration: 1})
+// let tl = gsap.timeline()
+// tl.to(camera.position, {y: -.3, duration: 1})
 
-
-let tl2 = gsap.timeline({
-    defaults: { ease: "power2.easeOut", duration: .5 },
+let tl1 = gsap.timeline({
+    defaults: { ease: "power1.inOut", duration: .5 },
+})
+tl1.to(camera.position, {y: -2, duration:2,
     scrollTrigger: {
         markers: true,
-        trigger: ".title h1", // この要素と交差するとイベントが発火
-        start: "top 50%", // ウィンドウのどの位置を発火の基準点にするか
-        end: "bottom top", // ウィンドウのどの位置をイベントの終了点にするか
-        toggleActions: "restart none reverse none", // スクロールイベントで発火するアニメーションの種
+        trigger: ".title h1",
+        start: "top 50%",
+        end: "top top",
+        toggleActions: "restart none reverse none",
         scrub: 1,
     },
 })
-tl2.to(sphere.position, {y: -1, duration:1} )
-//tl2.to(truck.children[2].position, {y: 4, duration:1} )
-//tl2.to(truck,{x: 4, duration:1} )
-//tl2.to(truck.children[0].position, {y: -1, duration:1} )
+
+
+
 if(truck){
     for(const t of truck.children){
-        tl2.to(t.position, {y: -1, duration:1} )
+        tl1.to(t.position, {y: -1, duration:1} )
         // t.rotation.y += 0.5 * (targetX -t.rotation.y)
         // t.rotation.x += 0.05 * (targetY -t.rotation.x)
         // t.position.z += -0.05 * (targetY -t.rotation.x)
@@ -498,9 +453,9 @@ gsap.from('.card', {
     opacity: 0, duration: 1, y: 50,ease: 'Power2.easeOut',
     scrollTrigger: {
         trigger: '.card',
-        start: 'top 60%',
-        end: 'top 40%',
-        //markers: true,
+        start: 'top 70%',
+        end: 'top 50%',
+        markers: true,
         scrub: 1,
     }
 });
