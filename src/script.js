@@ -4,7 +4,7 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-// import * as dat from 'dat.gui'
+import * as dat from 'dat.gui'
 import { PointLightHelper, SphereBufferGeometry } from 'three';
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -20,7 +20,7 @@ const textureLoader = new THREE.TextureLoader();
 const gltfLoader = new GLTFLoader();
 
 // Debug
-// const gui = new dat.GUI()
+const gui = new dat.GUI()
 
 //-----------------------------FUNCTIONS-------------------------------
 // Random
@@ -67,25 +67,18 @@ const sphere = new THREE.Mesh(geometry,material)
 sphere.position.set(0, 0, -0.5);
 sphere.scale.set(0.3, 0.3, 0.3);
 
-// SDGs Cube
-// const SDGsTexture = textureLoader.load('/textures/SDGs1.png');
-// const SDGs1 = new THREE.Mesh(
-//     new THREE.BoxGeometry(.5, .5, .5),
-//     new THREE.MeshBasicMaterial({
-//         map: SDGsTexture,
-//         normalMap: normalTexture
-//     })
-// );
-// scene.add(SDGs1);
-// SDGs1.position.set(0, -3, 0)
 
+let tl = gsap.timeline({
+    defaults: { ease: "power1.inOut", duration: .5 },
+})
 
 let japan;
-gltfLoader.load('/objects/japan.gltf', function(gltf){
+gltfLoader.load('/objects/japan2.gltf', function(gltf){
     japan = gltf.scene;
     for(let i = 0; i < japan.children.length; i++){
         let mesh = japan.children[i];
         mesh.castShadow = true;
+        mesh.receiveShadow = true;
     }
     scene.add(japan);
     japan.position.set(0, 0, 0);
@@ -105,7 +98,7 @@ gltfLoader.load('/objects/japan.gltf', function(gltf){
             x = -1 + 0.6;
             z = 13;
         }
-        tl1.to(japan.children[i].position, {
+        tl.to(japan.children[i].position, {
             x: x, y: 0, z: z,
             duration:1,
             scrollTrigger: {
@@ -116,7 +109,7 @@ gltfLoader.load('/objects/japan.gltf', function(gltf){
                 scrub: 1,
             },
         })
-        tl1.to(japan.children[i].rotation, {
+        tl.to(japan.children[i].rotation, {
             x: -Math.PI/3, z: 0, y: 0, 
             duration:1,
             scrollTrigger: {
@@ -130,6 +123,19 @@ gltfLoader.load('/objects/japan.gltf', function(gltf){
     }
 });
 
+var box;
+gltfLoader.load('/objects/temple.gltf', function(gltf){
+    box = gltf.scene;
+    for(let i = 0; i < box.children.length; i++){
+        let mesh = box.children[i];
+        mesh.castShadow = true;
+    }
+    scene.add(box);
+    box.position.set(0, -5, 0);
+    box.scale.set(.3, .3, .3);
+});
+
+
 var truck;
 gltfLoader.load('/objects/track.gltf', function(gltf){
     truck = gltf.scene;
@@ -142,31 +148,6 @@ gltfLoader.load('/objects/track.gltf', function(gltf){
     truck.scale.set(.3, .3, .3);
 });
 
-var box;
-gltfLoader.load('/objects/box.gltf', function(gltf){
-    box = gltf.scene;
-    for(let i = 0; i < box.children.length; i++){
-        let mesh = box.children[i];
-        mesh.castShadow = true;
-    }
-    scene.add(box);
-    box.position.set(0, -5, 0);
-    box.scale.set(.3, .3, .3);
-});
-
-//track.position.set(0, -1, 0)
-
-// mtlLoader.load('/objects/face.mtl', (materials) => {
-//     materials.preload();
-//     objLoader.setMaterials(materials);
-//     objLoader.load('/objects/face.obj', (object) => {
-//         scene.add(object);
-//         object.position.x = 0;
-//         object.position.y = -1;
-//         object.position.z = -4; 
-//     });
-// });
-
 
 //-----------------------------LIGHTS-------------------------------
 const hemiLight = new THREE.HemisphereLight( 0xffeeb1, 0x080820, 3 );
@@ -178,7 +159,7 @@ scene.add( hemiLight );
 
 // const spotLight1 = new THREE.SpotLight(0xffa95c,4);
 const spotLight1 = new THREE.SpotLight('#F8F8F8', 3, 1000);
-spotLight1.castShadow = true;
+//spotLight1.castShadow = true;
 scene.add(spotLight1)
 const spotLight1Helper = new THREE.SpotLightHelper(spotLight1, 1)
 scene.add(spotLight1Helper)
@@ -190,9 +171,17 @@ scene.add(rectLight);
 
 const pointLight = new THREE.PointLight('#FEED01', 3, 1000, 1);
 pointLight.position.set(5, 50, 50);
+//pointLight.castShadow = true;
 scene.add(pointLight);
 const pointH = new THREE.PointLightHelper(pointLight, 1)
 scene.add(pointH)
+
+// pointLight = gui.addFolder('pointLight')
+// pointLight.add(pointLight3.position, 'x').min(-6).max(6).step(0.01)
+// pointLight.add(pointLight3.position, 'y').min(-3).max(3).step(0.01)
+// pointLight.add(pointLight3.position, 'z').min(-3).max(3).step(0.01)
+// pointLight.add(pointLight3, 'intensity').min(0).max(10).step(0.01)
+
 
 //-----------------------------SIZES-------------------------------
 const sizes = {
@@ -224,8 +213,13 @@ renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 renderer.toneMapping = THREE.ReinhardToneMapping;
 renderer.toneMappingExposure = 2.3;
-renderer.gammaOutput = true;
+// renderer.gammaOutput = true;
+
+
+renderer.outputEncoding = THREE.GammaEncoding;
+//renderer.physicallyCorrectLights = true;
 renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 //-----------------------------CAMERA-------------------------------
 // CAMERA
@@ -235,24 +229,6 @@ camera.position.x = 0
 camera.position.y = 0
 camera.position.z = 2
 scene.add(camera)
-
-//Animation
-// function moveCamera(){
-//     const t = document.body.getBoundingClientRect().top;
-//     camera.position.y = t * 0.002;
-//     controls.target.y = camera.position.y;
-//     SDGs1.rotation.y = t * -0.001;
-//     if(truck){
-//         for(const t of truck.children){
-//             t.position.y = t * 0.002;
-//             t.rotation.y += t * -0.001;
-//         }
-//     }
-// }
-
-// fire every time on scroll
-//document.body.onscroll = moveCamera
-
 
 //-----------------------------ANIMATION-------------------------------
 // ANIMATE
@@ -272,18 +248,6 @@ function onDocumentMouseMove(event) {
     mouseY = (event.clientY - windowY)
 }
 
-// sphere action with scroll
-// const updateByScroll = (event) => {
-//     if(truck){
-//         for(const t of truck.children){
-//             //t.position.y = window.scrollY * 0.001
-//         }
-//     }
-//     sphere.position.y = window.scrollY * 0.001
-// }
-
-// window.addEventListener('scroll', updateByScroll);
-
 
 const clock = new THREE.Clock()
 const tick = () =>
@@ -294,22 +258,13 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
 
     // ----- Update objects -----
-    // sphere
-    // sphere.rotation.y = .5 * elapsedTime
-    // sphere.rotation.y += 0.5 * (targetX -sphere.rotation.y)
-    // sphere.rotation.x += 0.05 * (targetY -sphere.rotation.x)
-    // sphere.position.z += -0.05 * (targetY -sphere.rotation.x)
 
     // japan
     if(camera.position.y>-.3){
         if(japan){
-            // japan.rotation.y = .05 * elapsedTime
             japan.rotation.x += 0.05 * (Math.PI/3- targetY -japan.rotation.x)
             japan.rotation.y += 0.5 * (targetX -japan.rotation.y)
-            // japan.position.z += -0.01 * (targetY -japan.rotation.x)
-            // japan.position.y += 0.01 * (targetY -japan.rotation.x)
         }
-        //console.log(camera.position.y)
     }
 
     // box
@@ -371,7 +326,7 @@ if (navigator.userAgent.indexOf('iPhone') > 0 || navigator.userAgent.indexOf('An
     luxy.init({
         wrapper: '#luxy',
         targets : '.luxy-el',
-        wrapperSpeed:  0.15
+        wrapperSpeed:  0.2
     });
 }
 // luxy.init({
@@ -388,7 +343,6 @@ if (navigator.userAgent.indexOf('iPhone') > 0 || navigator.userAgent.indexOf('An
 gsap.from('body',{
     backgroundColor: "rgba( 254, 237, 1, 1)", ease: 'Power3.easeOut',
     scrollTrigger: {
-        markers: true,
         trigger: ".title h1",
         start: "top 50%",
         end: "top top",
@@ -396,19 +350,17 @@ gsap.from('body',{
         scrub: 1,
     },
 })
+
 gsap.from('header', {
     opacity: 0, duration: 1, y: -50, ease: 'Power2.easeInOut'
 });
 
-// let tl = gsap.timeline()
-// tl.to(camera.position, {y: -.3, duration: 1})
 
-let tl1 = gsap.timeline({
-    defaults: { ease: "power1.inOut", duration: .5 },
+let tlCamera = gsap.timeline({
+    defaults: { ease: "power1.inOut", duration: 2 },
 })
-tl1.to(camera.position, {y: -2, duration:2,
+tlCamera.to(camera.position, {y: -2,
     scrollTrigger: {
-        markers: true,
         trigger: ".title h1",
         start: "top 50%",
         end: "top top",
@@ -416,12 +368,22 @@ tl1.to(camera.position, {y: -2, duration:2,
         scrub: 1,
     },
 })
+// gsap.to(camera.position, {y: -5,
+//     scrollTrigger: {
+//         markers: true,
+//         trigger: "cam1",
+//         start: "top 50%",
+//         end: "top top",
+//         toggleActions: "restart none reverse none",
+//         scrub: 1,
+//     },
+// })
 
 
 
 if(truck){
     for(const t of truck.children){
-        tl1.to(t.position, {y: -1, duration:1} )
+        tl.to(t.position, {y: -1, duration:1} )
         // t.rotation.y += 0.5 * (targetX -t.rotation.y)
         // t.rotation.x += 0.05 * (targetY -t.rotation.x)
         // t.position.z += -0.05 * (targetY -t.rotation.x)
@@ -436,7 +398,6 @@ gsap.to('blockquote .bl-wrap',{
     scrollTrigger: {
         trigger: 'blockquote .bl-wrap',
         start: 'top 60%',
-        // markers: true,
     }
 });
 
@@ -455,7 +416,6 @@ gsap.from('.card', {
         trigger: '.card',
         start: 'top 70%',
         end: 'top 50%',
-        markers: true,
         scrub: 1,
     }
 });

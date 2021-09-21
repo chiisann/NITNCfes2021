@@ -110,24 +110,6 @@ a:hover{
     opacity: 50%;
 }
 
-.btn{
-position: relative;
-display: inline-block;
-padding: 0rem 1rem;
-cursor: pointer;
--webkit-transition: all 0.3s;
-transition: all 0.3s;
-}
-
-a.btn-border {
-background: var(--yellow);
-}
-
-a.btn-border:hover {
-background: var(--white);
-}
-
-
 /* responsive for PC */
 @media screen and (min-width: 768px){
     header .logo{
@@ -245,9 +227,15 @@ blockquote p {
     background-color: rgba( 254, 237, 1, 1);
     padding-top: 10vw;
     padding-bottom: 30vw;
-    height: 150vw;
+    /* height: 150vw; */
     position: relative;
     overflow: hidden;
+}
+
+@media screen and (min-width: 768px){
+    .image-container{
+        grid-column: 2/12;
+    }
 }
 
 .image-container .texts{
