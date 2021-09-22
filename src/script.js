@@ -43,34 +43,36 @@ const light = new THREE.Color(0xF8F8F8);
 const dark = new THREE.Color(0xFEED01);
 //scene.background = light;
 
+const sizes = {
+    width: window.innerWidth,
+    height: window.innerHeight
+}
+
+//-----------------------------CAMERA-------------------------------
+// CAMERA
+// Base camera
+const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
+camera.position.x = 0
+camera.position.y = 0
+camera.position.z = 2
+scene.add(camera)
+
 //-----------------------------OBJECTS-------------------------------
 // OBJECTS
-// Sphere
-const geometry = new THREE.SphereBufferGeometry( 0.5, 64, 64 );
-// not tif but png
-// const normalTexture = textureLoader.load('/textures/tex2.png');
-// const material = new THREE.MeshStandardMaterial()
-// material.metalness = 0;
-// material.roughness = 0.2;
-// material.normalMap = normalTexture;
-// material.color = new THREE.Color(0xF8F8F8);
-const meshParams = {
-    color: '#FEED01',
-    metalness: .58,
-    emissive: '#000000',
-    roughness: .18,
-};
-// we create our material outside the loop to keep it more performant
-const material = new THREE.MeshPhysicalMaterial(meshParams);
-const sphere = new THREE.Mesh(geometry,material)
-//scene.add(sphere)
-sphere.position.set(0, 0, -0.5);
-sphere.scale.set(0.3, 0.3, 0.3);
-
-
-let tl = gsap.timeline({
-    defaults: { ease: "power1.inOut", duration: .5 },
+let tl1 = gsap.timeline({
+    defaults: { 
+        ease: "power1.inOut", duration: 1,immediateRender: false,
+        scrollTrigger: {
+            trigger: ".title h1",
+            start: "top 50%",
+            end: "top top",
+            toggleActions: "restart none reverse none",
+            scrub: 1,
+        },
+    },
 })
+
+tl1.to(camera.position, {y: -2})
 
 let japan;
 gltfLoader.load('/objects/japan2.gltf', function(gltf){
@@ -98,30 +100,37 @@ gltfLoader.load('/objects/japan2.gltf', function(gltf){
             x = -1 + 0.6;
             z = 13;
         }
-        tl.to(japan.children[i].position, {
-            x: x, y: 0, z: z,
-            duration:1,
-            scrollTrigger: {
-                trigger: ".title h1",
-                start: "top 50%",
-                end: "top top",
-                toggleActions: "restart none reverse none",
-                scrub: 1,
-            },
-        })
-        tl.to(japan.children[i].rotation, {
-            x: -Math.PI/3, z: 0, y: 0, 
-            duration:1,
-            scrollTrigger: {
-                trigger: ".title h1",
-                start: "top 50%",
-                end: "top top",
-                toggleActions: "restart none reverse none",
-                scrub: 1,
-            },
-        })
+        tl1.to(japan.children[i].position, {x: x, y: 0, z: z,},)
+        tl1.to(japan.children[i].rotation, {x: -Math.PI/3, z: 0, y: 0, }, "<")
     }
 });
+
+tl1.to(camera.position, {y: -5, ease: "power1.inOut", duration: 2,
+    scrollTrigger: {
+        markers: true,
+        trigger: ".cam2",
+        start: "top 50%",
+        end: "top top",
+        toggleActions: "restart none reverse none",
+        scrub: 1,
+    },
+})
+
+// let tl2 = gsap.timeline({
+//     defaults: { 
+//         ease: "power1.inOut", duration: 1,
+//         scrollTrigger: {
+//             markers: true,
+//             trigger: ".cam2",
+//             start: "top 50%",
+//             end: "top top",
+//             toggleActions: "restart none reverse none",
+//             scrub: 1,
+//         },
+//     },
+// })
+
+// tl2.to(camera.position, {y: -5})
 
 var box;
 gltfLoader.load('/objects/temple.gltf', function(gltf){
@@ -184,10 +193,7 @@ scene.add(pointH)
 
 
 //-----------------------------SIZES-------------------------------
-const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight
-}
+
 
 window.addEventListener('resize', () =>
 {
@@ -220,15 +226,6 @@ renderer.outputEncoding = THREE.GammaEncoding;
 //renderer.physicallyCorrectLights = true;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-//-----------------------------CAMERA-------------------------------
-// CAMERA
-// Base camera
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.x = 0
-camera.position.y = 0
-camera.position.z = 2
-scene.add(camera)
 
 //-----------------------------ANIMATION-------------------------------
 // ANIMATE
@@ -356,22 +353,10 @@ gsap.from('header', {
 });
 
 
-let tlCamera = gsap.timeline({
-    defaults: { ease: "power1.inOut", duration: 2 },
-})
-tlCamera.to(camera.position, {y: -2,
-    scrollTrigger: {
-        trigger: ".title h1",
-        start: "top 50%",
-        end: "top top",
-        toggleActions: "restart none reverse none",
-        scrub: 1,
-    },
-})
-// gsap.to(camera.position, {y: -5,
+// gsap.to(camera.position, {y: -5, ease: "power1.inOut", duration: 2,
 //     scrollTrigger: {
 //         markers: true,
-//         trigger: "cam1",
+//         trigger: ".cam2",
 //         start: "top 50%",
 //         end: "top top",
 //         toggleActions: "restart none reverse none",
@@ -380,15 +365,6 @@ tlCamera.to(camera.position, {y: -2,
 // })
 
 
-
-if(truck){
-    for(const t of truck.children){
-        tl.to(t.position, {y: -1, duration:1} )
-        // t.rotation.y += 0.5 * (targetX -t.rotation.y)
-        // t.rotation.x += 0.05 * (targetY -t.rotation.x)
-        // t.position.z += -0.05 * (targetY -t.rotation.x)
-    }
-}
 
 
 gsap.to('blockquote .bl-wrap',{
