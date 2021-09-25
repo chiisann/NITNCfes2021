@@ -184,18 +184,6 @@ tl.to(camera.position, {y: -6, ease: "power1.inOut", duration: 2,
     },
 })
 
-var temple;
-gltfLoader.load('/objects/temple.gltf', function(gltf){
-    temple = gltf.scene;
-    for(let i = 0; i < temple.children.length; i++){
-        let mesh = temple.children[i];
-        mesh.castShadow = true;
-    }
-    scene.add(temple);
-    temple.position.set(0, -6, 0);
-    temple.scale.set(.3, .3, .3);
-});
-
 tl.to(camera.position, {y: -8, ease: "power0.easeNone", duration: 3,
     scrollTrigger: {
         trigger: ".cam3",
@@ -205,6 +193,58 @@ tl.to(camera.position, {y: -8, ease: "power0.easeNone", duration: 3,
         scrub: 1,
     },
 })
+
+var temple;
+gltfLoader.load('/objects/temple2.gltf', function(gltf){
+    temple = gltf.scene;
+    for(let i = 0; i < temple.children.length; i++){
+        let mesh = temple.children[i];
+        mesh.castShadow = true;
+    }
+    scene.add(temple);
+    temple.position.set(0, -6, 0);
+    temple.scale.set(.3, .3, .3);
+
+    //[6] candy
+
+    // temple.children[5].position.set(0, 0, 0) 
+    temple.children[5].position.set(0, -9, 0) 
+
+    // tl.to(temple.children[2].position, {y: -3}, )
+    // tl.to(temple.children[3].position, {y: -3}, )
+    // tl.to(temple.children[4].position, {y: -3}, )
+    
+    tl.to(temple.children[3].position, {y: -9,
+        scrollTrigger: {
+            trigger: ".cam3",
+            start: "top bottom",
+            end: "bottom top",
+            toggleActions: "play pause resume reset",
+            scrub: 1,
+        },
+    })
+    tl.to(temple.children[4].position, {y: -9,
+        scrollTrigger: {
+            trigger: ".cam3",
+            start: "top bottom",
+            end: "bottom top",
+            toggleActions: "play pause resume reset",
+            scrub: 1,
+        },
+    })
+    tl.to(temple.children[6].position, {y: -9,
+        scrollTrigger: {
+            trigger: ".cam3",
+            start: "top bottom",
+            end: "bottom top",
+            toggleActions: "play pause resume reset",
+            scrub: 1,
+        },
+    })
+});
+
+
+
 
 
 var truck;
@@ -268,8 +308,15 @@ const tick = () =>
     }
 
     // temple
+    // [1] hand
+    // [2] hand
+    // [3] spiral candy
+    // [4] pack
+    // [5] box
+    // [6] candy
     if(temple){
-        temple.children[5].rotation.y = 0.5 * elapsedTime
+        // temple.children[0].rotation.y = 0.5 * elapsedTime
+        temple.children[4].rotation.y = 0.5 * elapsedTime
         // temple.rotation.y = 0.5 * elapsedTime
         // for(const t of temple.children){
         //     t.rotation.y = 0.5 * elapsedTime
