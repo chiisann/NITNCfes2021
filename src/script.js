@@ -13,6 +13,7 @@ import luxy from 'luxy.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(MotionPathPlugin, TextPlugin);
 
 //-----------------------------LOADERS-------------------------------
 // Loading
@@ -141,7 +142,7 @@ let tl = gsap.timeline({
     },
 })
 
-tl.to(camera.position, {y: -2})
+tl.to(camera.position, {y: -2,})
 
 let japan;
 gltfLoader.load('/objects/japan2.gltf', function(gltf){
@@ -184,7 +185,7 @@ tl.to(camera.position, {y: -6, ease: "power1.inOut", duration: 2,
     },
 })
 
-tl.to(camera.position, {y: -8, ease: "power0.easeNone", duration: 3,
+tl.to(camera.position, {y: -11, ease: "power0.easeNone", duration: 3,
     scrollTrigger: {
         trigger: ".cam3",
         start: "top bottom",
@@ -231,7 +232,7 @@ gltfLoader.load('/objects/temple2.gltf', function(gltf){
             toggleActions: "play pause resume reset",
             scrub: 1,
         },
-    })
+    }, )
     tl.to(temple.children[6].position, {y: -9,
         scrollTrigger: {
             trigger: ".cam3",
@@ -240,7 +241,7 @@ gltfLoader.load('/objects/temple2.gltf', function(gltf){
             toggleActions: "play pause resume reset",
             scrub: 1,
         },
-    })
+    }, )
 });
 
 
@@ -255,9 +256,28 @@ gltfLoader.load('/objects/truck2.gltf', function(gltf){
         mesh.castShadow = true;
     }
     scene.add(truck);
-    truck.position.set(0, -9, -2);
+    truck.position.set(2, -15, -.5);
     truck.scale.set(.3, .3, .3);
     truck.rotation.set(0, Math.PI/2, 0)
+
+    tl.to(truck.position, {y: -11, 
+        scrollTrigger: {
+            trigger: ".cam3",
+            start: "top bottom",
+            end: "bottom top",
+            toggleActions: "play pause resume reset",
+            scrub: 1,
+        },
+    })
+    tl.to(truck.rotation, {y: 0,
+        scrollTrigger: {
+            trigger: ".cam3",
+            start: "top bottom",
+            end: "bottom top",
+            toggleActions: "play pause resume reset",
+            scrub: 1,
+        },
+    })
 });
 
 
@@ -311,12 +331,12 @@ const tick = () =>
     // [1] hand
     // [2] hand
     // [3] spiral candy
-    // [4] pack
-    // [5] box
+    // [4] box
+    // [5] pack
     // [6] candy
     if(temple){
         // temple.children[0].rotation.y = 0.5 * elapsedTime
-        temple.children[4].rotation.y = 0.5 * elapsedTime
+        temple.children[5].rotation.y = 0.5 * elapsedTime
         // temple.rotation.y = 0.5 * elapsedTime
         // for(const t of temple.children){
         //     t.rotation.y = 0.5 * elapsedTime

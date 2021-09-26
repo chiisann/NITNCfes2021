@@ -23,8 +23,6 @@ body{
 }
 
 :root {
-    --spacingTop: 50vw;
-    --spacing: 35vw;
     --black: #141414;
     --yellow: #FEED01;
     --white: #F8F8F8;
@@ -172,8 +170,7 @@ section {
     padding: 1rem;
     font-size: 1rem;
     line-height: 1.5;
-    /* margin-top: var(--spacing); */
-    margin-bottom: var(--spacing);
+    margin-bottom: 70vw;
     font-family: fot-tsukuardgothic-std, sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -231,11 +228,16 @@ blockquote p {
 .blank{
     background-color: var(--yellow);
     opacity: .5;
-    height: 80vw;
+    height: 100vw;
     grid-column: 1/13;
 }
 
-
+/* responsive for PC */
+@media screen and (min-width: 768px){ 
+    .blank{
+        height: 80vw;
+    }
+}
 
 /* ------------------ IMAGE ------------------ */
 
