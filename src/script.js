@@ -5,7 +5,7 @@ import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
-import { PointLightHelper, SphereBufferGeometry } from 'three';
+import { Path, PointLightHelper, SphereBufferGeometry } from 'three';
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
@@ -119,7 +119,7 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 renderer.toneMapping = THREE.ReinhardToneMapping;
-renderer.toneMappingExposure = 2.3;
+renderer.toneMappingExposure = 3;
 // renderer.gammaOutput = true;
 
 
@@ -127,6 +127,14 @@ renderer.outputEncoding = THREE.GammaEncoding;
 //renderer.physicallyCorrectLights = true;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+//----------------------------- BACKGROUND OBJECTS -------------------------------
+const geometry = new THREE.PlaneGeometry( 3, 1 );
+const material = new THREE.MeshBasicMaterial( {color: "#F8F8F8"} );
+const p1 = new THREE.Mesh( geometry, material );
+scene.add( p1 );
+p1.position.set(3, -3, -1)
+
 
 //----------------------------- OBJECTS AND ANIMATIONS -------------------------------
 let tl = gsap.timeline({
@@ -244,10 +252,19 @@ gltfLoader.load('/objects/temple2.gltf', function(gltf){
     }, )
 });
 
+tl.to(camera.position, {x: 5, ease: "power0.easeNone", duration: 3,
+    scrollTrigger: {
+        trigger: ".cam4",
+        start: "top 50%",
+        end: "bottom top",
+        toggleActions: "play pause resume reset",
+        scrub: 1,
+    },
+})
 
-
-
-
+// [0]: 2car
+// [1]: 0road
+// [2]: 1truck
 var truck;
 gltfLoader.load('/objects/truck2.gltf', function(gltf){
     truck = gltf.scene;
@@ -260,11 +277,11 @@ gltfLoader.load('/objects/truck2.gltf', function(gltf){
     truck.scale.set(.3, .3, .3);
     truck.rotation.set(0, Math.PI/2, 0)
 
-    tl.to(truck.position, {y: -11, 
+    tl.to(truck.position, {y: -11.5, 
         scrollTrigger: {
             trigger: ".cam3",
             start: "top bottom",
-            end: "bottom top",
+            end: "top 50%",
             toggleActions: "play pause resume reset",
             scrub: 1,
         },
@@ -273,14 +290,49 @@ gltfLoader.load('/objects/truck2.gltf', function(gltf){
         scrollTrigger: {
             trigger: ".cam3",
             start: "top bottom",
+            end: "top 50%",
+            toggleActions: "play pause resume reset",
+            scrub: 1,
+        },
+    })
+    tl.to(truck.children[2].position, {x: 5, ease: "power0.easeNone", duration: 3,
+        scrollTrigger: {
+            trigger: ".cam4",
+            start: "top 50%",
             end: "bottom top",
+            toggleActions: "play pause resume reset",
+            scrub: 1,
+        },
+    })
+    tl.to(truck.children[0].position, {x: -5, ease: "power0.easeNone", duration: 3,
+        scrollTrigger: {
+            trigger: ".cam4",
+            start: "top 50%",
+            end: "bottom top",
+            toggleActions: "play pause resume reset",
+            scrub: 1,
+        },
+    })
+    tl.to(truck.position, {y: -10, 
+        scrollTrigger: {
+            trigger: ".cam5",
+            start: "top bottom",
+            end: "top 50%",
             toggleActions: "play pause resume reset",
             scrub: 1,
         },
     })
 });
 
-
+tl.to(camera.position, {y: -13, ease: "power0.easeNone", duration: 3,
+    scrollTrigger: {
+        trigger: ".cam5",
+        start: "top bottom",
+        end: "bottom top",
+        toggleActions: "play pause resume reset",
+        scrub: 1,
+    },
+})
 
 //-----------------------------ANIMATION-------------------------------
 // ANIMATE
@@ -438,13 +490,45 @@ gsap.to('blockquote h2', {
     }
 });
 
-gsap.from('.card', {
+gsap.from('.card1', {
     opacity: 0, duration: 1, y: 50,ease: 'Power2.easeOut',
     scrollTrigger: {
-        trigger: '.card',
+        trigger: '.card1',
         start: 'top 70%',
         end: 'top 60%',
         scrub: 1,
+    }
+});
+
+gsap.from('.card2', {
+    opacity: 0, duration: 1, y: 50,ease: 'Power2.easeOut',
+    scrollTrigger: {
+        trigger: '.card2',
+        start: 'top 70%',
+        end: 'top 60%',
+        scrub: 1,
+    }
+});
+
+// gsap.from('.card3-pin', {
+//     opacity: 0,
+//     scrollTrigger: {
+//         trigger: '.card3',
+//         start: 'top 70%',
+//         end: 'top 30%',
+//         scrub: 1,
+//         markers: true,
+//         pin: true,
+//     }
+// });
+gsap.from('.card3', {
+    opacity: 0, x: -50,ease: 'Power2.easeOut',
+    scrollTrigger: {
+        trigger: '.card3',
+        start: 'top 80%',
+        end: 'top 40%',
+        scrub: 1,
+        pin: true,
     }
 });
 
@@ -452,11 +536,11 @@ gsap.from('.card', {
 gsap.to('body',{
     backgroundColor: "rgba( 254, 237, 1, 1)", ease: 'Power3.easeOut',
     scrollTrigger: {
-        trigger: ".image-container",
+        trigger: ".backToggle",
         start: "top 80%",
         end: "top 30%",
-        toggleActions: "play pause resume reset",
         scrub: 1,
+        markers: true,
     },
 })
 

@@ -89,6 +89,7 @@ header .author {
 
 .donate{
     position: relative;
+    font-family: fot-tsukuardgothic-std, sans-serif;
 }
 
 .donate::after{
@@ -170,7 +171,7 @@ section {
     padding: 1rem;
     font-size: 1rem;
     line-height: 1.5;
-    margin-bottom: 70vw;
+    margin-bottom: 30vw;
     font-family: fot-tsukuardgothic-std, sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -181,8 +182,25 @@ section {
     section {
         grid-column: 2 / 8;
         font-size: 1.25rem;
+        margin-bottom: 30vw;
     }
 }
+
+section i{
+    margin-right: 1rem; 
+    font-size: 2.5rem;
+    transition: 200ms;
+}
+
+section i:hover{
+    color: var(--yellow);
+}
+
+/* section .card3-pin{
+    padding-top: 100vw;
+    padding-bottom: 100vw;
+} */
+
 
 blockquote {
     margin: 0;
@@ -221,6 +239,46 @@ blockquote p {
     font-size: 1.25rem;
     display: block;
     line-height: 1;
+}
+
+.num-wrap{
+    position: relative;
+    text-align: center;
+    padding: 1%;
+}
+
+.num{
+    display: inline-block;
+    font-size: 3rem;
+    margin-right: 5%;
+    font-weight: 600;
+    font-family: brandon-grotesque, sans-serif;
+}
+
+.text{
+    display: inline-block;
+    font-size: 1rem;
+}
+
+.num-wrap::after{
+    display: block;
+    position: absolute;
+    left: 10%;
+    bottom: 20%;
+    width: 80%;
+    height: 2vw;
+    background-color: var(--yellow);
+    content: '';
+    z-index: -1;
+}
+
+@media screen and (min-width: 768px){
+    .num{
+        font-size: 5rem;
+    }
+    .text{
+        font-size: 1.25rem;
+    }
 }
 
 /* ------------------ CAMERA MOVE ------------------ */
@@ -287,6 +345,13 @@ blockquote p {
     height: 50vw;
 }
 
+@media screen and (min-width: 768px){
+    .images{
+        margin-bottom: 0vw;
+        height: 45vw;
+    }
+}
+
 .img1{
     background-image: url("../static/img/oto_opening.png");
 }
@@ -296,6 +361,9 @@ blockquote p {
 .img3{
     background-image: url("../static/img/oto_result.png");
 }
+.img4{
+    background-image: url("../static/img/otera.png");
+}
 
 .block{
     background-color: var(--yellow);
@@ -304,7 +372,57 @@ blockquote p {
     grid-column: 1/13;
 }
 
+/* ---------- INTRO ---------- */
 
+.intro-box{
+    grid-column: 2 / 8;
+    text-align: left;
+    color: var(--black);
+    font-family: fot-tsukuardgothic-std, sans-serif;
+}
+
+.intro-text{
+    font-family: brandon-grotesque, sans-serif;
+    font-size: 1.25rem;
+    margin-bottom: 2%;
+    font-weight: 700;
+}
+
+.intro-textsub{
+    font-size: 1rem;
+}
+
+.mini-text{  
+    font-family: fot-tsukuardgothic-std, sans-serif;
+    font-size: .5rem
+}
+
+.intro-box i{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    font-size: 2.5rem;
+    transition: 200ms;
+}
+
+.intro-box i:hover{
+    opacity: 50%;
+}
+
+
+@media screen and (min-width: 768px){
+  .intro-text{
+    font-size: 2rem;
+  }  
+  .intro-textsub{
+    font-size: 1.2rem;
+  }
+  .mini-text{ 
+    font-size: 1rem;
+  }
+  .intro-box i{
+    font-size: 3rem;
+  }
+}
 /* ---------- FOOTER ---------- */
 footer {
     grid-column: 1/13;
