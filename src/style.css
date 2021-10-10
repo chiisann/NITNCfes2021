@@ -196,10 +196,9 @@ section i:hover{
     color: var(--yellow);
 }
 
-/* section .card3-pin{
-    padding-top: 100vw;
-    padding-bottom: 100vw;
-} */
+section .card5{
+    margin-bottom: 10vw;
+}
 
 
 blockquote {
@@ -528,10 +527,14 @@ blockquote p {
 
 /* ---------- MOVIE ---------- */
 .movie{
+    grid-column: 1/13;
+}
+
+.iframe{
     grid-column: 2/12;
 }
 @media screen and (min-width: 768px){
-    .movie{
+    .iframe{
         grid-column: 3/11;
     }
 }

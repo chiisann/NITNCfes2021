@@ -527,11 +527,11 @@ blockquote p {
 }
 
 /* ---------- MOVIE ---------- */
-.movie{
+.iframe{
     grid-column: 2/12;
 }
 @media screen and (min-width: 768px){
-    .movie{
+    .iframe{
         grid-column: 3/11;
     }
 }
