@@ -491,21 +491,39 @@ gsap.from('header', {
     opacity: 0, duration: 1, y: -50, ease: 'Power2.easeInOut'
 });
 
-gsap.to('.bl-wrap',{
+// gsap.to('blockquote .bl-wrap',{
+//     left: "100%", 
+//     width: "150%",
+//     ease: 'Power1.easeInOut',
+//     scrollTrigger: {
+//         trigger: '.bl1',
+//         start: 'top 60%',
+//     }
+// });
+
+// gsap.to('.bl1 h2', {
+//     opacity: 1, 
+//     delay: 0.1,
+//     scrollTrigger: {
+//         trigger: '.bl1',
+//         start: 'top 60%',
+//     }
+// });
+
+gsap.to('blockquote .bl-wrap',{
     left: "100%", 
     width: "150%",
     ease: 'Power1.easeInOut',
     scrollTrigger: {
-        trigger: '.bl1',
+        trigger: 'blockquote .bl-wrap',
         start: 'top 60%',
     }
 });
-
-gsap.to('.bl1 h2', {
+gsap.to('blockquote h2', {
     opacity: 1, 
     delay: 0.1,
     scrollTrigger: {
-        trigger: '.bl1',
+        trigger: 'blockquote .bl-wrap',
         start: 'top 60%',
     }
 });
@@ -550,17 +568,6 @@ gsap.from('.card2', {
     }
 });
 
-// gsap.from('.card3-pin', {
-//     opacity: 0,
-//     scrollTrigger: {
-//         trigger: '.card3',
-//         start: 'top 70%',
-//         end: 'top 30%',
-//         scrub: 1,
-//         markers: true,
-//         pin: true,
-//     }
-// });
 gsap.from('.card3', {
     opacity: 0, x: -50,ease: 'Power2.easeOut',
     scrollTrigger: {
@@ -568,7 +575,6 @@ gsap.from('.card3', {
         start: 'top 80%',
         end: 'top 40%',
         scrub: 1,
-        pin: true,
     }
 });
 
@@ -597,10 +603,10 @@ gsap.to('body',{
     backgroundColor: "rgba( 254, 237, 1, 1)", ease: 'Power3.easeOut',
     scrollTrigger: {
         trigger: ".backToggle",
-        start: "top 50%",
-        end: "top top",
+        start: "top 90%",
+        end: "top 80%",
         scrub: 1,
-        toggleActions: "restart none reverse none",
+        // toggleActions: "restart none reverse none",
         markers: true,
     },
 })
