@@ -129,11 +129,11 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 //----------------------------- BACKGROUND OBJECTS -------------------------------
-const geometry = new THREE.PlaneGeometry( 3, 1 );
-const material = new THREE.MeshBasicMaterial( {color: "#F8F8F8"} );
-const p1 = new THREE.Mesh( geometry, material );
-scene.add( p1 );
-p1.position.set(3, -3, -1)
+// const geometry = new THREE.PlaneGeometry( 3, 1 );
+// const material = new THREE.MeshBasicMaterial( {color: "#F8F8F8"} );
+// const p1 = new THREE.Mesh( geometry, material );
+// scene.add( p1 );
+// p1.position.set(3, -3, -1)
 
 
 //----------------------------- OBJECTS AND ANIMATIONS -------------------------------
@@ -153,7 +153,7 @@ let tl = gsap.timeline({
 tl.to(camera.position, {y: -2,})
 
 let japan;
-gltfLoader.load('/objects/japan2.gltf', function(gltf){
+gltfLoader.load('/objects/japan3.gltf', function(gltf){
     japan = gltf.scene;
     for(let i = 0; i < japan.children.length; i++){
         let mesh = japan.children[i];
@@ -178,12 +178,43 @@ gltfLoader.load('/objects/japan2.gltf', function(gltf){
             x = -1 + 0.6;
             z = 13;
         }
-        tl.to(japan.children[i].position, {x: x, y: 0, z: z,},)
+        tl.to(japan.children[i].position, {x: x, y: 0, z: z})
         tl.to(japan.children[i].rotation, {x: -Math.PI/3, z: 0, y: 0, }, "<")
     }
 });
 
+
+// to trip
 tl.to(camera.position, {y: -6, ease: "power1.inOut", duration: 2,
+    scrollTrigger: {
+        trigger: ".cam1",
+        start: "top 80%",
+        end: "top 10%",
+        toggleActions: "play pause resume reset",
+        scrub: 1,
+    },
+})
+
+// [0] 1car
+// [1] 0earth
+// [2] 2cloud
+var trip;
+gltfLoader.load('/objects/trip1.gltf', function(gltf){
+    trip = gltf.scene;
+    for(let i = 0; i < trip.children.length; i++){
+        let mesh = trip.children[i];
+        mesh.castShadow = true;
+    }
+    scene.add(trip);
+    trip.position.set(0, -7, 0);
+    trip.scale.set(.5, .5, .5);
+    // trip.children[1].rotateY(Math.PI/2)
+    trip.children[2].rotation.set(Math.PI/2, 0,0 )
+});
+
+
+// to temple
+tl.to(camera.position, {y: -9, ease: "power1.inOut", duration: 2,
     scrollTrigger: {
         trigger: ".cam2",
         start: "top 80%",
@@ -193,63 +224,20 @@ tl.to(camera.position, {y: -6, ease: "power1.inOut", duration: 2,
     },
 })
 
-tl.to(camera.position, {y: -11, ease: "power0.easeNone", duration: 3,
-    scrollTrigger: {
-        trigger: ".cam3",
-        start: "top bottom",
-        end: "bottom top",
-        toggleActions: "play pause resume reset",
-        scrub: 1,
-    },
-})
+
 
 var temple;
-gltfLoader.load('/objects/temple2.gltf', function(gltf){
+gltfLoader.load('/objects/temple3.gltf', function(gltf){
     temple = gltf.scene;
     for(let i = 0; i < temple.children.length; i++){
         let mesh = temple.children[i];
         mesh.castShadow = true;
     }
     scene.add(temple);
-    temple.position.set(0, -6, 0);
+    temple.position.set(0, -9, 0);
     temple.scale.set(.3, .3, .3);
 
     //[6] candy
-
-    // temple.children[5].position.set(0, 0, 0) 
-    temple.children[5].position.set(0, -9, 0) 
-
-    // tl.to(temple.children[2].position, {y: -3}, )
-    // tl.to(temple.children[3].position, {y: -3}, )
-    // tl.to(temple.children[4].position, {y: -3}, )
-    
-    tl.to(temple.children[3].position, {y: -9,
-        scrollTrigger: {
-            trigger: ".cam3",
-            start: "top bottom",
-            end: "bottom top",
-            toggleActions: "play pause resume reset",
-            scrub: 1,
-        },
-    })
-    tl.to(temple.children[4].position, {y: -9,
-        scrollTrigger: {
-            trigger: ".cam3",
-            start: "top bottom",
-            end: "bottom top",
-            toggleActions: "play pause resume reset",
-            scrub: 1,
-        },
-    }, )
-    tl.to(temple.children[6].position, {y: -9,
-        scrollTrigger: {
-            trigger: ".cam3",
-            start: "top bottom",
-            end: "bottom top",
-            toggleActions: "play pause resume reset",
-            scrub: 1,
-        },
-    }, )
 });
 
 tl.to(camera.position, {x: 5, ease: "power0.easeNone", duration: 3,
@@ -262,11 +250,23 @@ tl.to(camera.position, {x: 5, ease: "power0.easeNone", duration: 3,
     },
 })
 
+
+// to truck
+tl.to(camera.position, {y: -11, ease: "power0.easeNone", duration: 3,
+    scrollTrigger: {
+        trigger: ".cam3",
+        start: "top bottom",
+        end: "bottom top",
+        toggleActions: "play pause resume reset",
+        scrub: 1,
+    },
+})
+
 // [0]: 2car
 // [1]: 0road
 // [2]: 1truck
 var truck;
-gltfLoader.load('/objects/truck2.gltf', function(gltf){
+gltfLoader.load('/objects/truck3.gltf', function(gltf){
     truck = gltf.scene;
     for(let i = 0; i < truck.children.length; i++){
         let mesh = truck.children[i];
@@ -295,6 +295,8 @@ gltfLoader.load('/objects/truck2.gltf', function(gltf){
             scrub: 1,
         },
     })
+
+    // move X
     tl.to(truck.children[2].position, {x: 5, ease: "power0.easeNone", duration: 3,
         scrollTrigger: {
             trigger: ".cam4",
@@ -363,7 +365,6 @@ const tick = () =>
 
     // ----- Update objects -----
     // japan
-
     const radius = 2;
     const w = Math.PI/9;
     const x = radius * Math.cos(w * elapsedTime);
@@ -387,13 +388,32 @@ const tick = () =>
     // [5] pack
     // [6] candy
     if(temple){
-        // temple.children[0].rotation.y = 0.5 * elapsedTime
         temple.children[5].rotation.y = 0.5 * elapsedTime
-        // temple.rotation.y = 0.5 * elapsedTime
-        // for(const t of temple.children){
-        //     t.rotation.y = 0.5 * elapsedTime
-        // }
     }
+
+    // [0] 1car
+    // [1] 0earth
+    // [2] 2cloud
+    if(trip){
+        trip.children[1].rotation.z = 0.5 * elapsedTime
+        trip.children[2].rotation.x = 0.2 * elapsedTime
+    }
+
+    // japan
+    // const radius = 2;
+    // const w = Math.PI/9;
+    // const x = radius * Math.cos(w * elapsedTime);
+    // const y = radius * Math.sin(w * elapsedTime);  
+    // // https://ics.media/entry/10657/
+
+    // if(camera.position.y>-.3){
+    //     if(japan){
+    //         japan.rotation.x += 0.05 * (Math.PI/3- targetY -japan.rotation.x)
+    //         japan.rotation.y += 0.5 * (targetX -japan.rotation.y)
+    //         japan.children[8].position.x = -x;
+    //         japan.children[7].position.x = x;
+    //     }
+    // }
 
     // initial camera pos=(0, 0, 2)
 
@@ -471,21 +491,21 @@ gsap.from('header', {
     opacity: 0, duration: 1, y: -50, ease: 'Power2.easeInOut'
 });
 
-gsap.to('blockquote .bl-wrap',{
+gsap.to('.bl-wrap',{
     left: "100%", 
     width: "150%",
     ease: 'Power1.easeInOut',
     scrollTrigger: {
-        trigger: 'blockquote .bl-wrap',
+        trigger: '.bl1',
         start: 'top 60%',
     }
 });
 
-gsap.to('blockquote h2', {
+gsap.to('.bl1 h2', {
     opacity: 1, 
     delay: 0.1,
     scrollTrigger: {
-        trigger: 'blockquote .bl-wrap',
+        trigger: '.bl1',
         start: 'top 60%',
     }
 });
@@ -494,6 +514,26 @@ gsap.from('.card1', {
     opacity: 0, duration: 1, y: 50,ease: 'Power2.easeOut',
     scrollTrigger: {
         trigger: '.card1',
+        start: 'top 70%',
+        end: 'top 60%',
+        scrub: 1,
+    }
+});
+
+gsap.from('.graph-container', {
+    opacity: 0, duration: 1, y: 50,ease: 'Power2.easeOut',
+    scrollTrigger: {
+        trigger: '.graph-container',
+        start: 'top 70%',
+        end: 'top 50%',
+        scrub: 1,
+    }
+});
+
+gsap.from('.card-trip', {
+    opacity: 0, duration: 1, y: 50,ease: 'Power2.easeOut',
+    scrollTrigger: {
+        trigger: '.card-trip',
         start: 'top 70%',
         end: 'top 60%',
         scrub: 1,
@@ -532,14 +572,35 @@ gsap.from('.card3', {
     }
 });
 
+gsap.from('.card4', {
+    opacity: 0, duration: 1, y: 50,ease: 'Power2.easeOut',
+    scrollTrigger: {
+        trigger: '.card4',
+        start: 'top 70%',
+        end: 'top 60%',
+        scrub: 1,
+    }
+});
+
+gsap.from('.card5', {
+    opacity: 0, duration: 1, y: 50,ease: 'Power2.easeOut',
+    scrollTrigger: {
+        trigger: '.card5',
+        start: 'top 70%',
+        end: 'top 60%',
+        scrub: 1,
+    }
+});
+
 // Background Animation
 gsap.to('body',{
     backgroundColor: "rgba( 254, 237, 1, 1)", ease: 'Power3.easeOut',
     scrollTrigger: {
         trigger: ".backToggle",
-        start: "top 80%",
-        end: "top 30%",
+        start: "top 50%",
+        end: "top top",
         scrub: 1,
+        toggleActions: "restart none reverse none",
         markers: true,
     },
 })

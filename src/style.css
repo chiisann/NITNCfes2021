@@ -104,7 +104,7 @@ header .author {
 
 a{
     text-decoration: none;
-    color: #1D1D1D;
+    color: var(--black);
     transition: 200ms;
 }
 
@@ -281,6 +281,86 @@ blockquote p {
     }
 }
 
+/* ------------------ GRAPH ------------------ */
+.graph-container{
+    text-align: center;
+    grid-column: 1/13;
+    font-size: 3rem;
+    color: var(--black);
+    margin-bottom: 50vw;
+}
+
+.graph-section{
+    display: block;
+    /* height: 70vw; */
+    width: 80%;
+    /* background-color: var(--grey); */
+    text-align: center;
+    margin: 0 auto;
+}
+
+.graph-section .num{
+    font-size: 3rem;
+    font-weight: 600;
+    margin: 0;
+    display: block;
+}
+
+.graph-section .text{
+    display: inline-block;
+    font-size: 1rem;
+    font-family: fot-tsukuardgothic-std, sans-serif;
+    margin-top: 0;
+}
+
+.images-graph{
+    display: block;
+    background-size: contain;
+    background-repeat: no-repeat; 
+    height: 70vw;
+}
+@media screen and (min-width: 768px){
+    .gragh-container{
+        margin-bottom: 30vw;
+    }
+    .graph-section{
+        display: inline-block;
+        width: 40%
+    }
+    .graph-section .num{
+        font-size: 4rem;
+    }
+    .images-graph{
+        height: 30vw;
+    }
+}
+
+/* ---------- DONATE BTN ---------- */
+.donate-btn{
+    text-align: center;
+    grid-column: 2/12;
+    background-color: var(--yellow);
+    padding: 1rem 0rem;
+    font-family: fot-tsukuardgothic-std, sans-serif;
+    font-size: 1rem;
+    color: var(--black);
+    transition: 200ms;
+    border: 1vw solid;
+    border-color: var(--white);
+    border-radius: 2rem;
+    margin-bottom: 50vw;
+}
+.donate-btn:hover{
+    opacity: 50%;
+}
+@media screen and (min-width: 768px){
+    .donate-btn{
+        grid-column: 4/10;
+        font-size: 1.5rem;
+        margin-bottom: 30vw;
+    }
+}
+
 /* ------------------ CAMERA MOVE ------------------ */
 
 .blank{
@@ -302,8 +382,8 @@ blockquote p {
 .image-container {
     grid-column: 1 / 13;
     /* background-color: rgba( 254, 237, 1, 1); */
-    padding-top: 10vw;
-    padding-bottom: 30vw;
+    padding-top: 0vw;
+    padding-bottom: 0vw;
     /* height: 150vw; */
     position: relative;
     overflow: hidden;
@@ -335,6 +415,8 @@ blockquote p {
     text-align: center;
     margin: 5vw;
     font-weight: bold;
+    font-family: fot-tsukuardgothic-std, sans-serif;
+    font-size: .5rem;
 }
 
 .images{
@@ -350,6 +432,9 @@ blockquote p {
         margin-bottom: 0vw;
         height: 45vw;
     }
+    .image-container-center{
+        font-size: 1rem;
+    }
 }
 
 .img1{
@@ -364,6 +449,18 @@ blockquote p {
 .img4{
     background-image: url("../static/img/otera.png");
 }
+.img5{
+    background-image: url("../static/img/potato1.png");
+}
+.img6{
+    background-image: url("../static/img/potato2.png");
+}
+.img7{
+    background-image: url("../static/img/graph1.png");
+}
+.img8{
+    background-image: url("../static/img/graph2.png");
+}
 
 .block{
     background-color: var(--yellow);
@@ -375,21 +472,19 @@ blockquote p {
 /* ---------- INTRO ---------- */
 
 .intro-box{
-    grid-column: 2 / 8;
+    grid-column: 2 / 9;
     text-align: left;
     color: var(--black);
     font-family: fot-tsukuardgothic-std, sans-serif;
+    margin-bottom: 10vw;
+    margin-top: 10vw;
 }
 
 .intro-text{
     font-family: brandon-grotesque, sans-serif;
     font-size: 1.25rem;
-    margin-bottom: 2%;
+    margin-bottom: 1rem;
     font-weight: 700;
-}
-
-.intro-textsub{
-    font-size: 1rem;
 }
 
 .mini-text{  
@@ -397,9 +492,12 @@ blockquote p {
     font-size: .5rem
 }
 
+.intro-textsub{
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
 .intro-box i{
-    margin-top: 5%;
-    margin-bottom: 5%;
     font-size: 2.5rem;
     transition: 200ms;
 }
@@ -410,30 +508,56 @@ blockquote p {
 
 
 @media screen and (min-width: 768px){
-  .intro-text{
-    font-size: 2rem;
-  }  
-  .intro-textsub{
-    font-size: 1.2rem;
-  }
-  .mini-text{ 
-    font-size: 1rem;
-  }
-  .intro-box i{
-    font-size: 3rem;
-  }
+    .intro-box{
+        margin-top: 0vw;
+        margin-bottom: 5vw;
+    }
+    .intro-text{
+        font-size: 2rem;
+    }  
+    .intro-textsub{
+        font-size: 1.2rem;
+    }
+    .mini-text{ 
+        font-size: 1rem;
+    }
+    .intro-box i{
+        font-size: 3rem;
+    }
 }
+
+/* ---------- MOVIE ---------- */
+.movie{
+    grid-column: 2/12;
+}
+@media screen and (min-width: 768px){
+    .movie{
+        grid-column: 3/11;
+        height: 100vw
+    }
+}
+
 /* ---------- FOOTER ---------- */
 footer {
     grid-column: 1/13;
-    height: 8vw; 
+    height: 20vw; 
     text-align: center;
-    padding: 10vw 0;
+    padding: 5vw 0;
     background-color: var(--white);
 }
 
 footer p {
     color: var(--black);
     font-size: 2vw;
-    margin-bottom: 2vw;
+    margin-bottom: 1vw;
+}
+
+@media screen and (min-width: 768px){
+    footer{
+        height: 10vw; 
+        padding: 5vw 0;
+    }
+    footer p {
+        font-size: 1.5vw;
+    }
 }
