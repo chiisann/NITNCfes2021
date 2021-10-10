@@ -6,6 +6,9 @@ html{
 }
 body{
     background-color: var(--white);
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
 }
 
 .webgl
@@ -20,8 +23,6 @@ body{
 }
 
 :root {
-    --spacingTop: 50vw;
-    --spacing: 35vw;
     --black: #141414;
     --yellow: #FEED01;
     --white: #F8F8F8;
@@ -88,6 +89,7 @@ header .author {
 
 .donate{
     position: relative;
+    font-family: fot-tsukuardgothic-std, sans-serif;
 }
 
 .donate::after{
@@ -102,31 +104,13 @@ header .author {
 
 a{
     text-decoration: none;
-    color: #1D1D1D;
+    color: var(--black);
     transition: 200ms;
 }
 
 a:hover{
     opacity: 50%;
 }
-
-.btn{
-position: relative;
-display: inline-block;
-padding: 0rem 1rem;
-cursor: pointer;
--webkit-transition: all 0.3s;
-transition: all 0.3s;
-}
-
-a.btn-border {
-background: var(--yellow);
-}
-
-a.btn-border:hover {
-background: var(--white);
-}
-
 
 /* responsive for PC */
 @media screen and (min-width: 768px){
@@ -141,7 +125,7 @@ background: var(--white);
     }
 }
 
-/* ---------- MAIN ---------- */
+/* ------------------ MAIN ------------------ */
 /* #title-top{
     height: 90vw;
     grid-column: 1/6;
@@ -181,13 +165,13 @@ background: var(--white);
     }
 }
 
+/* ------------------ SECTION ------------------ */
 section {
     grid-column: 2 / 12;
     padding: 1rem;
     font-size: 1rem;
     line-height: 1.5;
-    /* margin-top: var(--spacing); */
-    margin-bottom: var(--spacing);
+    margin-bottom: 30vw;
     font-family: fot-tsukuardgothic-std, sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -198,8 +182,25 @@ section {
     section {
         grid-column: 2 / 8;
         font-size: 1.25rem;
+        margin-bottom: 30vw;
     }
 }
+
+section i{
+    margin-right: 1rem; 
+    font-size: 2.5rem;
+    transition: 200ms;
+}
+
+section i:hover{
+    color: var(--yellow);
+}
+
+/* section .card3-pin{
+    padding-top: 100vw;
+    padding-bottom: 100vw;
+} */
+
 
 blockquote {
     margin: 0;
@@ -240,14 +241,158 @@ blockquote p {
     line-height: 1;
 }
 
+.num-wrap{
+    position: relative;
+    text-align: center;
+    padding: 1%;
+}
+
+.num{
+    display: inline-block;
+    font-size: 3rem;
+    margin-right: 5%;
+    font-weight: 600;
+    font-family: brandon-grotesque, sans-serif;
+}
+
+.text{
+    display: inline-block;
+    font-size: 1rem;
+}
+
+.num-wrap::after{
+    display: block;
+    position: absolute;
+    left: 10%;
+    bottom: 20%;
+    width: 80%;
+    height: 2vw;
+    background-color: var(--yellow);
+    content: '';
+    z-index: -1;
+}
+
+@media screen and (min-width: 768px){
+    .num{
+        font-size: 5rem;
+    }
+    .text{
+        font-size: 1.25rem;
+    }
+}
+
+/* ------------------ GRAPH ------------------ */
+.graph-container{
+    text-align: center;
+    grid-column: 1/13;
+    font-size: 3rem;
+    color: var(--black);
+    margin-bottom: 50vw;
+}
+
+.graph-section{
+    display: block;
+    /* height: 70vw; */
+    width: 80%;
+    /* background-color: var(--grey); */
+    text-align: center;
+    margin: 0 auto;
+}
+
+.graph-section .num{
+    font-size: 3rem;
+    font-weight: 600;
+    margin: 0;
+    display: block;
+}
+
+.graph-section .text{
+    display: inline-block;
+    font-size: 1rem;
+    font-family: fot-tsukuardgothic-std, sans-serif;
+    margin-top: 0;
+}
+
+.images-graph{
+    display: block;
+    background-size: contain;
+    background-repeat: no-repeat; 
+    height: 70vw;
+}
+@media screen and (min-width: 768px){
+    .gragh-container{
+        margin-bottom: 30vw;
+    }
+    .graph-section{
+        display: inline-block;
+        width: 40%
+    }
+    .graph-section .num{
+        font-size: 4rem;
+    }
+    .images-graph{
+        height: 30vw;
+    }
+}
+
+/* ---------- DONATE BTN ---------- */
+.donate-btn{
+    text-align: center;
+    grid-column: 2/12;
+    background-color: var(--yellow);
+    padding: 1rem 0rem;
+    font-family: fot-tsukuardgothic-std, sans-serif;
+    font-size: 1rem;
+    color: var(--black);
+    transition: 200ms;
+    border: 1vw solid;
+    border-color: var(--white);
+    border-radius: 2rem;
+    margin-bottom: 50vw;
+}
+.donate-btn:hover{
+    opacity: 50%;
+}
+@media screen and (min-width: 768px){
+    .donate-btn{
+        grid-column: 4/10;
+        font-size: 1.5rem;
+        margin-bottom: 30vw;
+    }
+}
+
+/* ------------------ CAMERA MOVE ------------------ */
+
+.blank{
+    background-color: var(--yellow);
+    opacity: .5;
+    height: 100vw;
+    grid-column: 1/13;
+}
+
+/* responsive for PC */
+@media screen and (min-width: 768px){ 
+    .blank{
+        height: 80vw;
+    }
+}
+
+/* ------------------ IMAGE ------------------ */
+
 .image-container {
     grid-column: 1 / 13;
-    background-color: rgba( 254, 237, 1, 1);
-    padding-top: 10vw;
-    padding-bottom: 30vw;
-    height: 150vw;
+    /* background-color: rgba( 254, 237, 1, 1); */
+    padding-top: 0vw;
+    padding-bottom: 0vw;
+    /* height: 150vw; */
     position: relative;
     overflow: hidden;
+}
+
+@media screen and (min-width: 768px){
+    .image-container{
+        grid-column: 2/12;
+    }
 }
 
 .image-container .texts{
@@ -270,8 +415,9 @@ blockquote p {
     text-align: center;
     margin: 5vw;
     font-weight: bold;
+    font-family: fot-tsukuardgothic-std, sans-serif;
+    font-size: .5rem;
 }
-
 
 .images{
     display: block;
@@ -279,6 +425,16 @@ blockquote p {
     background-size: contain;
     background-repeat: no-repeat; 
     height: 50vw;
+}
+
+@media screen and (min-width: 768px){
+    .images{
+        margin-bottom: 0vw;
+        height: 45vw;
+    }
+    .image-container-center{
+        font-size: 1rem;
+    }
 }
 
 .img1{
@@ -290,6 +446,21 @@ blockquote p {
 .img3{
     background-image: url(assets/images/7f0a2738fc7c0cdcba306350244cf806.png);
 }
+.img4{
+    background-image: url(assets/images/fdaee364b3617b4c6f100aa7d2b56eb2.png);
+}
+.img5{
+    background-image: url(assets/images/eae6db5f5fdcd60c4ab53aeccc8750ac.png);
+}
+.img6{
+    background-image: url(assets/images/a34e1bf265c14b53bf11042703ddd138.png);
+}
+.img7{
+    background-image: url(assets/images/0cf2decdbd329771f5fc4ba04a51ab64.png);
+}
+.img8{
+    background-image: url(assets/images/035144e0f5daa72d897fdfdf27bd6ce2.png);
+}
 
 .block{
     background-color: var(--yellow);
@@ -298,20 +469,97 @@ blockquote p {
     grid-column: 1/13;
 }
 
+/* ---------- INTRO ---------- */
+
+.intro-box{
+    grid-column: 2 / 9;
+    text-align: left;
+    color: var(--black);
+    font-family: fot-tsukuardgothic-std, sans-serif;
+    margin-bottom: 10vw;
+    margin-top: 10vw;
+}
+
+.intro-text{
+    font-family: brandon-grotesque, sans-serif;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.mini-text{  
+    font-family: fot-tsukuardgothic-std, sans-serif;
+    font-size: .5rem
+}
+
+.intro-textsub{
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.intro-box i{
+    font-size: 2.5rem;
+    transition: 200ms;
+}
+
+.intro-box i:hover{
+    opacity: 50%;
+}
+
+
+@media screen and (min-width: 768px){
+    .intro-box{
+        margin-top: 0vw;
+        margin-bottom: 5vw;
+    }
+    .intro-text{
+        font-size: 2rem;
+    }  
+    .intro-textsub{
+        font-size: 1.2rem;
+    }
+    .mini-text{ 
+        font-size: 1rem;
+    }
+    .intro-box i{
+        font-size: 3rem;
+    }
+}
+
+/* ---------- MOVIE ---------- */
+.movie{
+    grid-column: 2/12;
+}
+@media screen and (min-width: 768px){
+    .movie{
+        grid-column: 3/11;
+        height: 100vw
+    }
+}
 
 /* ---------- FOOTER ---------- */
 footer {
     grid-column: 1/13;
-    height: 8vw; 
+    height: 20vw; 
     text-align: center;
-    padding: 10vw 0;
-    background-color:white;
+    padding: 5vw 0;
+    background-color: var(--white);
 }
 
-.footer-text {
+footer p {
     color: var(--black);
-    font-size: 2.5vw;
-    font-weight: 700;
+    font-size: 2vw;
+    margin-bottom: 1vw;
+}
+
+@media screen and (min-width: 768px){
+    footer{
+        height: 10vw; 
+        padding: 5vw 0;
+    }
+    footer p {
+        font-size: 1.5vw;
+    }
 }
 
 /*# sourceMappingURL=main.css.map*/
