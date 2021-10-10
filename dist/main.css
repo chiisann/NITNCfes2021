@@ -530,14 +530,14 @@ blockquote p {
     grid-column: 1/13;
 }
 
-.iframe{
+/* .iframe{
     grid-column: 2/12;
 }
 @media screen and (min-width: 768px){
     .iframe{
         grid-column: 3/11;
     }
-}
+} */
 
 /* ---------- FOOTER ---------- */
 footer {
