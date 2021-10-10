@@ -196,7 +196,7 @@ section i:hover{
     color: var(--yellow);
 }
 
-section .card5{
+section.card5{
     margin-bottom: 10vw;
 }
 
@@ -382,7 +382,7 @@ blockquote p {
     grid-column: 1 / 13;
     /* background-color: rgba( 254, 237, 1, 1); */
     padding-top: 0vw;
-    padding-bottom: 0vw;
+    padding-bottom: 5vw;
     /* height: 150vw; */
     position: relative;
     overflow: hidden;

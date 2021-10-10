@@ -196,10 +196,9 @@ section i:hover{
     color: var(--yellow);
 }
 
-/* section .card3-pin{
-    padding-top: 100vw;
-    padding-bottom: 100vw;
-} */
+section.card5{
+    margin-bottom: 10vw;
+}
 
 
 blockquote {
@@ -383,7 +382,7 @@ blockquote p {
     grid-column: 1 / 13;
     /* background-color: rgba( 254, 237, 1, 1); */
     padding-top: 0vw;
-    padding-bottom: 0vw;
+    padding-bottom: 5vw;
     /* height: 150vw; */
     position: relative;
     overflow: hidden;
@@ -527,6 +526,10 @@ blockquote p {
 }
 
 /* ---------- MOVIE ---------- */
+.movie{
+    grid-column: 1/13;
+}
+
 .iframe{
     grid-column: 2/12;
 }

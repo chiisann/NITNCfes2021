@@ -604,9 +604,9 @@ gsap.to('body',{
     scrollTrigger: {
         trigger: ".backToggle",
         start: "top 90%",
-        end: "top 80%",
+        end: "top 70%",
         scrub: 1,
-        // toggleActions: "restart none reverse none",
+        toggleActions: "restart none reverse none",
         markers: true,
     },
 })
