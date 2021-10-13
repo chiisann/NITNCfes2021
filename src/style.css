@@ -5,7 +5,7 @@ html{
     width: 100%;
 }
 body{
-    background-color: var(--yellow);
+    background-color: var(--white);
     margin: 0px;
     padding: 0px;
     width: 100%;
@@ -189,19 +189,15 @@ section {
 section i{
     margin-right: 1rem; 
     font-size: 2.5rem;
-    transition: 300ms;
+    transition: 200ms;
 }
 
 section i:hover{
     color: var(--yellow);
 }
 
-section.card3{
-    margin-top: 100vw;
-    margin-bottom: 80vw;
-}
 section.card5{
-    margin-bottom: 5vw;
+    margin-bottom: 10vw;
 }
 
 
@@ -215,16 +211,17 @@ blockquote {
     overflow: hidden;
 }
 
-.bl-wrap1,.bl-wrap2,.bl-wrap3,.bl-wrap3,.bl-wrap4{
+blockquote .bl-wrap{
     position: absolute;
     width: 100%;
     height: 80%;
     left: -100%;
     z-index: 1;
     background-color: var(--yellow);
+    opacity: 1;
 }
 
-.bl-text1,.bl-text2,.bl-text3,.bl-text4,.bl-text5{
+blockquote h2{
     font-style: italic;
     font-size: 2rem;
     line-height: 1;
@@ -232,7 +229,7 @@ blockquote {
 }
 
 @media screen and (min-width: 768px){
-    .bl-text1,.bl-text2,.bl-text3,.bl-text4,.bl-text5 {
+    blockquote h2 {
         font-size: 5rem;
     }
 }
@@ -337,14 +334,6 @@ blockquote p {
     }
 }
 
-.image-container-center.no-margin{
-    margin-top: 0;
-    margin-bottom: 0;
-}
-.image-container.no-margin{
-    padding-bottom: 0;
-}
-
 /* ---------- DONATE BTN ---------- */
 .donate-btn{
     text-align: center;
@@ -374,16 +363,16 @@ blockquote p {
 /* ------------------ CAMERA MOVE ------------------ */
 
 .blank{
-    /* background-color: var(--yellow);
-    opacity: .5; */
-    height: 30vw;
+    background-color: var(--yellow);
+    opacity: .5;
+    height: 100vw;
     grid-column: 1/13;
 }
 
 /* responsive for PC */
 @media screen and (min-width: 768px){ 
     .blank{
-        height: 30vw;
+        height: 80vw;
     }
 }
 
@@ -443,7 +432,7 @@ blockquote p {
         height: 45vw;
     }
     .image-container-center{
-        font-size: 1.2rem;
+        font-size: 1.5rem;
     }
 }
 
@@ -478,12 +467,6 @@ blockquote p {
     display: block;
     grid-column: 1/13;
 }
-
-/* .backToggle{
-    grid-column: 1/13;
-    display: block;
-    height: 5vw;
-} */
 
 /* ---------- INTRO ---------- */
 
@@ -545,7 +528,6 @@ blockquote p {
 /* ---------- MOVIE ---------- */
 .movie{
     grid-column: 1/13;
-    display: block;
 }
 
 /* .iframe{

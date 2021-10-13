@@ -185,7 +185,7 @@ gltfLoader.load('/objects/japan3.gltf', function(gltf){
 
 
 // to trip
-tl.to(camera.position, {y: -5, ease: "power1.inOut", duration: 2,
+tl.to(camera.position, {y: -6, ease: "power1.inOut", duration: 2,
     scrollTrigger: {
         trigger: ".cam1",
         start: "top 80%",
@@ -206,10 +206,10 @@ gltfLoader.load('/objects/trip1.gltf', function(gltf){
         mesh.castShadow = true;
     }
     scene.add(trip);
-    trip.position.set(0, -5.8, 0);
-    trip.scale.set(.8, .8, .8);
+    trip.position.set(0, -7, 0);
+    trip.scale.set(.5, .5, .5);
     // trip.children[1].rotateY(Math.PI/2)
-    trip.children[2].rotation.set(0, 0,Math.PI/4)
+    trip.children[2].rotation.set(Math.PI/2, 0,0 )
 });
 
 
@@ -252,7 +252,7 @@ tl.to(camera.position, {x: 5, ease: "power0.easeNone", duration: 3,
 
 
 // to truck
-tl.to(camera.position, {y: -12, ease: "power0.easeNone", duration: 3,
+tl.to(camera.position, {y: -11, ease: "power0.easeNone", duration: 3,
     scrollTrigger: {
         trigger: ".cam3",
         start: "top bottom",
@@ -273,11 +273,11 @@ gltfLoader.load('/objects/truck3.gltf', function(gltf){
         mesh.castShadow = true;
     }
     scene.add(truck);
-    truck.position.set(2, -17, -1);
+    truck.position.set(2, -15, -.5);
     truck.scale.set(.3, .3, .3);
-    truck.rotation.set(0, Math.PI/4, 0)
+    truck.rotation.set(0, Math.PI/2, 0)
 
-    tl.to(truck.position, {y: -12.5,
+    tl.to(truck.position, {y: -11.5, 
         scrollTrigger: {
             trigger: ".cam3",
             start: "top bottom",
@@ -286,25 +286,16 @@ gltfLoader.load('/objects/truck3.gltf', function(gltf){
             scrub: 1,
         },
     })
-    tl.to(truck.position, {z: -.5, ease: "power0.easeNone",
+    tl.to(truck.rotation, {y: 0,
         scrollTrigger: {
-            trigger: ".cam4",
+            trigger: ".cam3",
             start: "top bottom",
             end: "top 50%",
             toggleActions: "play pause resume reset",
             scrub: 1,
         },
     })
-    tl.to(truck.rotation, {y: 0,ease: "power0.easeNone",
-        scrollTrigger: {
-            trigger: ".cam4",
-            start: "top bottom",
-            end: "top 50%",
-            toggleActions: "play pause resume reset",
-            scrub: 1,
-        },
-    })
-    
+
     // move X
     tl.to(truck.children[2].position, {x: 5, ease: "power0.easeNone", duration: 3,
         scrollTrigger: {
@@ -324,9 +315,18 @@ gltfLoader.load('/objects/truck3.gltf', function(gltf){
             scrub: 1,
         },
     })
+    tl.to(truck.position, {y: -10, 
+        scrollTrigger: {
+            trigger: ".cam5",
+            start: "top bottom",
+            end: "top 50%",
+            toggleActions: "play pause resume reset",
+            scrub: 1,
+        },
+    })
 });
 
-tl.to(camera.position, {y: -17, ease: "power0.easeNone", duration: 3,
+tl.to(camera.position, {y: -13, ease: "power0.easeNone", duration: 3,
     scrollTrigger: {
         trigger: ".cam5",
         start: "top bottom",
@@ -394,16 +394,26 @@ const tick = () =>
     // [0] 1car
     // [1] 0earth
     // [2] 2cloud
-    if(-6<camera.position.y&&camera.position.y<-4){
-        if(trip){
-            trip.children[1].rotation.z = 0.5 * elapsedTime
-            trip.children[2].rotation.x = 0.2 * elapsedTime
-
-            trip.children[0].rotation.x += 0.05 * (Math.PI- targetY -trip.children[0].rotation.x)
-            trip.children[0].rotation.y += 0.5 * (targetX -trip.children[0].rotation.y)
-            trip.children[0].position.x += 0.5 * (targetX - trip.children[0].rotation.y)
-        }
+    if(trip){
+        trip.children[1].rotation.z = 0.5 * elapsedTime
+        trip.children[2].rotation.x = 0.2 * elapsedTime
     }
+
+    // japan
+    // const radius = 2;
+    // const w = Math.PI/9;
+    // const x = radius * Math.cos(w * elapsedTime);
+    // const y = radius * Math.sin(w * elapsedTime);  
+    // // https://ics.media/entry/10657/
+
+    // if(camera.position.y>-.3){
+    //     if(japan){
+    //         japan.rotation.x += 0.05 * (Math.PI/3- targetY -japan.rotation.x)
+    //         japan.rotation.y += 0.5 * (targetX -japan.rotation.y)
+    //         japan.children[8].position.x = -x;
+    //         japan.children[7].position.x = x;
+    //     }
+    // }
 
     // initial camera pos=(0, 0, 2)
 
@@ -466,12 +476,12 @@ if (navigator.userAgent.indexOf('iPhone') > 0 || navigator.userAgent.indexOf('An
 // GSAP(Animation)
 //------------------------------------------------------------
 
-gsap.to('body',{
-    backgroundColor: "#F8F8F8", ease: 'Power3.easeOut',
+gsap.from('body',{
+    backgroundColor: "rgba( 254, 237, 1, 1)", ease: 'Power3.easeOut',
     scrollTrigger: {
-        trigger: ".bl-wrap1",
-        start: 'top bottom',
-        end: 'top top',
+        trigger: ".title h1",
+        start: "top 50%",
+        end: "top top",
         toggleActions: "restart none reverse none",
         scrub: 1,
     },
@@ -481,89 +491,43 @@ gsap.from('header', {
     opacity: 0, duration: 1, y: -50, ease: 'Power2.easeInOut'
 });
 
-//-----------------------------BLOCKQUOTE-------------------------------
-gsap.to('.bl-wrap1',{
+// gsap.to('blockquote .bl-wrap',{
+//     left: "100%", 
+//     width: "150%",
+//     ease: 'Power1.easeInOut',
+//     scrollTrigger: {
+//         trigger: '.bl1',
+//         start: 'top 60%',
+//     }
+// });
+
+// gsap.to('.bl1 h2', {
+//     opacity: 1, 
+//     delay: 0.1,
+//     scrollTrigger: {
+//         trigger: '.bl1',
+//         start: 'top 60%',
+//     }
+// });
+
+gsap.to('blockquote .bl-wrap',{
     left: "100%", 
     width: "150%",
     ease: 'Power1.easeInOut',
     scrollTrigger: {
-        trigger: '.bl-wrap1',
+        trigger: 'blockquote .bl-wrap',
         start: 'top 60%',
     }
 });
-gsap.to('.bl-text1', {
+gsap.to('blockquote h2', {
     opacity: 1, 
     delay: 0.1,
     scrollTrigger: {
-        trigger: '.bl-wrap1',
+        trigger: 'blockquote .bl-wrap',
         start: 'top 60%',
     }
 });
 
-gsap.to('.bl-wrap2',{
-    left: "100%", 
-    width: "150%",
-    ease: 'Power1.easeInOut',
-    scrollTrigger: {
-        trigger: '.bl-wrap2',
-        start: 'top 60%',
-    }
-});
-gsap.to('.bl-text2', {
-    opacity: 1, 
-    delay: 0.1,
-    scrollTrigger: {
-        trigger: '.bl-wrap2',
-        start: 'top 60%',
-    }
-});
-
-gsap.to('.bl-wrap3',{
-    left: "100%", 
-    width: "150%",
-    ease: 'Power1.easeInOut',
-    scrollTrigger: {
-        trigger: '.bl-wrap3',
-        start: 'top 60%',
-    }
-});
-gsap.to('.bl-text3', {
-    opacity: 1, 
-    delay: 0.1,
-    scrollTrigger: {
-        trigger: '.bl-wrap3',
-        start: 'top 60%',
-    }
-});
-
-gsap.to('.bl-wrap4',{
-    left: "100%", 
-    width: "150%",
-    ease: 'Power1.easeInOut',
-    scrollTrigger: {
-        trigger: '.bl-wrap4',
-        start: 'top 60%',
-    }
-});
-gsap.to('.bl-text4', {
-    opacity: 1, 
-    delay: 0.1,
-    scrollTrigger: {
-        trigger: '.bl-wrap4',
-        start: 'top 60%',
-    }
-});
-
-gsap.to('.bl-text5', {
-    opacity: 1, 
-    delay: 0.1,
-    scrollTrigger: {
-        trigger: '.bl-wrap5',
-        start: 'top 60%',
-    }
-});
-
-//-----------------------------CARD-------------------------------
 gsap.from('.card1', {
     opacity: 0, duration: 1, y: 50,ease: 'Power2.easeOut',
     scrollTrigger: {
@@ -579,7 +543,7 @@ gsap.from('.graph-container', {
     scrollTrigger: {
         trigger: '.graph-container',
         start: 'top 70%',
-        end: 'top 40%',
+        end: 'top 50%',
         scrub: 1,
     }
 });
@@ -609,7 +573,7 @@ gsap.from('.card3', {
     scrollTrigger: {
         trigger: '.card3',
         start: 'top 80%',
-        end: 'bottom 40%',
+        end: 'top 40%',
         scrub: 1,
     }
 });
@@ -636,11 +600,11 @@ gsap.from('.card5', {
 
 // Background Animation
 gsap.to('body',{
-    backgroundColor: "#FEED01", ease: 'Power3.easeOut',
+    backgroundColor: "rgba( 254, 237, 1, 1)", ease: 'Power3.easeOut',
     scrollTrigger: {
         trigger: ".backToggle",
         start: "top 90%",
-        end: "top 10%",
+        end: "top 70%",
         scrub: 1,
         toggleActions: "restart none reverse none",
         markers: true,
