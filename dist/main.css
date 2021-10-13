@@ -549,7 +549,7 @@ blockquote p {
 
 /* ---------- MOVIE ---------- */
 .movie{
-    grid-column: 1/13;
+    grid-column: 2/12;
     display: block;
 }
 
