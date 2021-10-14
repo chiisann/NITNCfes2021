@@ -5,7 +5,7 @@ html{
     width: 100%;
 }
 body{
-    background-color: var(--yellow);
+    background-color: var(--white);
     margin: 0px;
     padding: 0px;
     width: 100%;
@@ -56,6 +56,28 @@ h1, h2, h3, blockquote {
     font-style: normal;
 }
 
+/* ---------- LOADER ---------- */
+
+/* @keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        display: none;
+        opacity: 0;
+        z-index: -1;
+    }
+}
+
+#loader {
+    grid-column: 1/13;
+    height: 100vh;
+    background-color: var(--yellow);
+    z-index: 101;
+}
+#loader.loaded {
+    animation: fadeOut 3s forwards;
+} */
 
 /* ---------- HEADER ---------- */
 header {
@@ -302,10 +324,12 @@ blockquote p {
 .graph-section{
     display: block;
     /* height: 70vw; */
-    width: 80%;
+    /* width: 80%; */
     /* background-color: var(--grey); */
     text-align: center;
-    margin: 0 auto;
+    /* top | right,left| bottom  */
+    margin: 0 auto 20vw;
+    
 }
 
 .graph-section .num{
@@ -326,7 +350,7 @@ blockquote p {
     display: block;
     background-size: contain;
     background-repeat: no-repeat; 
-    height: 70vw;
+    height: 50vw;
 }
 @media screen and (min-width: 768px){
     .gragh-container{
@@ -352,6 +376,19 @@ blockquote p {
     padding-bottom: 0;
 }
 
+/* ---------- LIST ---------- */
+ul {
+    color: var(--black);
+    border-top: solid var(--black) 1px;/*上のボーダー*/
+    border-bottom: solid var(--black) 1px;/*下のボーダー*/
+    padding: 0.5em 0 0.5em 1.5em;
+  }
+  
+  ul li{
+    line-height: 1.5;
+    padding: 0.5em 0;
+  }
+
 /* ---------- DONATE BTN ---------- */
 .donate-btn{
     text-align: center;
@@ -362,13 +399,14 @@ blockquote p {
     font-size: 1rem;
     color: var(--black);
     transition: 200ms;
-    border: .5vw solid;
-    border-color: var(--white);
     border-radius: 2rem;
     margin-bottom: 50vw;
 }
 .donate-btn:hover{
     opacity: 50%;
+}
+.donate-btn a:hover{
+    opacity: 1;
 }
 @media screen and (min-width: 768px){
     .donate-btn{
@@ -398,10 +436,8 @@ blockquote p {
 
 .image-container {
     grid-column: 1 / 13;
-    /* background-color: rgba( 254, 237, 1, 1); */
     padding-top: 0vw;
     padding-bottom: 5vw;
-    /* height: 150vw; */
     position: relative;
     overflow: hidden;
 }
@@ -442,6 +478,7 @@ blockquote p {
     background-size: contain;
     background-repeat: no-repeat; 
     height: 50vw;
+    background-position: center;
 }
 
 @media screen and (min-width: 768px){
@@ -468,15 +505,23 @@ blockquote p {
 }
 .img5{
     background-image: url("../static/img/potato1.png");
+    background-position: top;
 }
 .img6{
     background-image: url("../static/img/potato2.png");
 }
 .img7{
     background-image: url("../static/img/graph1.png");
+    background-position: center;
 }
 .img8{
     background-image: url("../static/img/graph2.png");
+    background-position: center;
+}
+
+.images.img-ooc{
+    /* width: 50%; */
+    height: 20vw;
 }
 
 .block{
@@ -551,16 +596,31 @@ blockquote p {
 }
 
 /* ---------- MOVIE ---------- */
-/* .movie{
-    grid-column: 2/12;
+.movie-title{
+    grid-column: 1/13;
+    color: var(--white);
     display: block;
-} */
+    font-size: 7vw;
+    font-weight: 700;
+    font-style: italic;
+    text-align: center;
+}
+
+.movie-text{
+    grid-column: 1/13;
+    font-family: fot-tsukuardgothic-std, sans-serif;
+    font-size: .5rem;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 5vw;
+}
 
 .movie{
 	position:relative;
 	grid-column: 2/12;
 	height:0;
 	padding-top:60%;
+    margin-bottom: 30vw;
 }
 .movie iframe{
 	position:absolute;
@@ -568,22 +628,17 @@ blockquote p {
 	left:0;
 	width:100%;
 	height:100%;
+    margin-bottom: 5vw;
 }
 
 @media screen and (min-width: 768px){
     .movie{
         grid-column: 3/11;
     }
-}
-
-/* .iframe{
-    grid-column: 2/12;
-}
-@media screen and (min-width: 768px){
-    .iframe{
-        grid-column: 3/11;
+    .movie-text{
+        font-size: 1.2rem;
     }
-} */
+}
 
 /* ---------- FOOTER ---------- */
 footer {

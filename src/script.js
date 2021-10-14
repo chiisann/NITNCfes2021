@@ -71,8 +71,8 @@ scene.add( hemiLight );
 const spotLight1 = new THREE.SpotLight('#F8F8F8', 3, 1000);
 //spotLight1.castShadow = true;
 scene.add(spotLight1)
-const spotLight1Helper = new THREE.SpotLightHelper(spotLight1, 1)
-scene.add(spotLight1Helper)
+// const spotLight1Helper = new THREE.SpotLightHelper(spotLight1, 1)
+// scene.add(spotLight1Helper)
 
 const rectLight = new THREE.RectAreaLight('#0077ff', 1.5, 2000, 2000);
 rectLight.position.set(5, 50, 50);
@@ -83,8 +83,8 @@ const pointLight = new THREE.PointLight('#FEED01', 3, 1000, 1);
 pointLight.position.set(5, 50, 50);
 //pointLight.castShadow = true;
 scene.add(pointLight);
-const pointH = new THREE.PointLightHelper(pointLight, 1)
-scene.add(pointH)
+// const pointH = new THREE.PointLightHelper(pointLight, 1)
+// scene.add(pointH)
 
 // pointLight = gui.addFolder('pointLight')
 // pointLight.add(pointLight3.position, 'x').min(-6).max(6).step(0.01)
@@ -185,7 +185,7 @@ gltfLoader.load('/objects/japan3.gltf', function(gltf){
 
 
 // to trip
-tl.to(camera.position, {y: -5, ease: "power1.inOut", duration: 2,
+tl.to(camera.position, {y: -5, ease: "power1.inOut",
     scrollTrigger: {
         trigger: ".cam1",
         start: "top 80%",
@@ -214,7 +214,7 @@ gltfLoader.load('/objects/trip1.gltf', function(gltf){
 
 
 // to temple
-tl.to(camera.position, {y: -9, ease: "power1.inOut", duration: 2,
+tl.to(camera.position, {y: -9, ease: "power1.inOut",
     scrollTrigger: {
         trigger: ".cam2",
         start: "top 80%",
@@ -240,7 +240,7 @@ gltfLoader.load('/objects/temple3.gltf', function(gltf){
     //[6] candy
 });
 
-tl.to(camera.position, {x: 5, ease: "power0.easeNone", duration: 3,
+tl.to(camera.position, {x: 5, ease: "power0.easeNone",
     scrollTrigger: {
         trigger: ".cam4",
         start: "top 50%",
@@ -252,7 +252,7 @@ tl.to(camera.position, {x: 5, ease: "power0.easeNone", duration: 3,
 
 
 // to truck
-tl.to(camera.position, {y: -12, ease: "power0.easeNone", duration: 3,
+tl.to(camera.position, {y: -12, ease: "power0.easeNone",
     scrollTrigger: {
         trigger: ".cam3",
         start: "top bottom",
@@ -306,7 +306,7 @@ gltfLoader.load('/objects/truck3.gltf', function(gltf){
     })
     
     // move X
-    tl.to(truck.children[2].position, {x: 5, ease: "power0.easeNone", duration: 3,
+    tl.to(truck.children[2].position, {x: 5, ease: "power0.easeNone",
         scrollTrigger: {
             trigger: ".cam4",
             start: "top 50%",
@@ -315,7 +315,7 @@ gltfLoader.load('/objects/truck3.gltf', function(gltf){
             scrub: 1,
         },
     })
-    tl.to(truck.children[0].position, {x: -5, ease: "power0.easeNone", duration: 3,
+    tl.to(truck.children[0].position, {x: -5, ease: "power0.easeNone",
         scrollTrigger: {
             trigger: ".cam4",
             start: "top 50%",
@@ -327,7 +327,7 @@ gltfLoader.load('/objects/truck3.gltf', function(gltf){
 });
 
 // to action
-tl.to(camera.position, {y: -17, ease: "power0.easeNone", duration: 3,
+tl.to(camera.position, {y: -17, ease: "power0.easeNone",
     scrollTrigger: {
         trigger: ".cam5",
         start: "top bottom",
@@ -345,7 +345,7 @@ gltfLoader.load('/objects/action.gltf', function(gltf){
         mesh.castShadow = true;
     }
     scene.add(action);
-    action.position.set(5, -17, 0);
+    action.position.set(5, -17, -1);
     action.scale.set(2, 2, 2);
 
     //[6] candy
@@ -353,7 +353,7 @@ gltfLoader.load('/objects/action.gltf', function(gltf){
 
 
 // to end
-tl.to(camera.position, {y: -20, ease: "power1.inOut", duration: 3,
+tl.to(camera.position, {y: -21, ease: "power1.inOut",
     scrollTrigger: {
         trigger: ".cam6",
         start: "top bottom",
@@ -431,24 +431,20 @@ const tick = () =>
     // [6] candy
     if(-10<camera.position.y&&camera.position.y<-8){
         if(temple){
+            temple.children[1].rotation.x = 2 * Math.cos(w * elapsedTime)
+            temple.children[2].rotation.x = 2 * Math.cos(w * elapsedTime)
+            temple.children[4].rotation.z = 0.5 * elapsedTime
             temple.rotation.x += 0.05 * (targetY -temple.rotation.x)
             temple.rotation.y += 0.05 * (targetX -temple.rotation.y)
-            // temple.position.z += -0.05 * (targetY -temple.rotation.x)
-            // temple.children[0].rotation.y += 0.05 * (targetX -temple.children[0].rotation.y)
-            // temple.children[0].rotation.x += 0.05 * (targetY -temple.children[0].rotation.x)
-            for(const t of temple.children){
-                t.rotation.y += 0.05 * (Math.PI/8-targetX -t.rotation.y)
-                t.rotation.x += 0.05 * (Math.PI/8-targetY -t.rotation.x)
-                // t.position.z += -0.05 * (targetY -t.rotation.x)
-                
-            }
-            //temple.children[5].rotation.y = 0.5 * elapsedTime
+            // for(const t of temple.children){
+            // }
         }
     }
 
     if(-19<camera.position.y&&camera.position.y<-15){
         if(action){
-
+            action.rotation.x += 0.05 * (targetY -action.rotation.x)
+            action.rotation.y += 0.05 * (targetX -action.rotation.y)
         }
     }
 
@@ -513,16 +509,16 @@ if (navigator.userAgent.indexOf('iPhone') > 0 || navigator.userAgent.indexOf('An
 // GSAP(Animation)
 //------------------------------------------------------------
 
-gsap.to('body',{
-    backgroundColor: "#F8F8F8", ease: 'Power3.easeOut',
-    scrollTrigger: {
-        trigger: ".bl-wrap1",
-        start: 'top bottom',
-        end: 'top top',
-        toggleActions: "restart none reverse none",
-        scrub: 1,
-    },
-})
+// gsap.to('body',{
+//     backgroundColor: "#F8F8F8", ease: 'Power3.easeOut',
+//     scrollTrigger: {
+//         trigger: ".bl-wrap1",
+//         start: 'top bottom',
+//         end: 'top top',
+//         toggleActions: "restart none reverse none",
+//         scrub: 1,
+//     },
+// })
 
 gsap.from('header', {
     opacity: 0, duration: 1, y: -50, ease: 'Power2.easeInOut'
@@ -565,23 +561,23 @@ gsap.to('.bl-text2', {
     }
 });
 
-gsap.to('.bl-wrap3',{
-    left: "100%", 
-    width: "150%",
-    ease: 'Power1.easeInOut',
-    scrollTrigger: {
-        trigger: '.bl-wrap3',
-        start: 'top 60%',
-    }
-});
-gsap.to('.bl-text3', {
-    opacity: 1, 
-    delay: 0.1,
-    scrollTrigger: {
-        trigger: '.bl-wrap3',
-        start: 'top 60%',
-    }
-});
+// gsap.to('.bl-wrap3',{
+//     left: "100%", 
+//     width: "150%",
+//     ease: 'Power1.easeInOut',
+//     scrollTrigger: {
+//         trigger: '.bl-wrap3',
+//         start: 'top 60%',
+//     }
+// });
+// gsap.to('.bl-text3', {
+//     opacity: 1, 
+//     delay: 0.1,
+//     scrollTrigger: {
+//         trigger: '.bl-wrap3',
+//         start: 'top 60%',
+//     }
+// });
 
 gsap.to('.bl-wrap4',{
     left: "100%", 
@@ -686,10 +682,16 @@ gsap.to('body',{
     backgroundColor: "#FEED01", ease: 'Power3.easeOut',
     scrollTrigger: {
         trigger: ".backToggle",
-        start: "top 90%",
+        start: "top 60%",
         end: "top 10%",
         scrub: 1,
         toggleActions: "restart none reverse none",
         markers: true,
     },
 })
+
+
+// window.onload = ()=>{
+//     const loader = document.getElementById('loader');
+//     loader.classList.add('loaded');
+// }
