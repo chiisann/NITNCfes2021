@@ -195,7 +195,10 @@ section i{
 section i:hover{
     color: var(--yellow);
 }
-
+/* OOC */
+section.card2{
+    margin-bottom: 0vw;
+}
 section.card3{
     margin-top: 150vw;
     margin-bottom: 80vw;
@@ -359,7 +362,7 @@ blockquote p {
     font-size: 1rem;
     color: var(--black);
     transition: 200ms;
-    border: 1vw solid;
+    border: .5vw solid;
     border-color: var(--white);
     border-radius: 2rem;
     margin-bottom: 50vw;
@@ -548,9 +551,29 @@ blockquote p {
 }
 
 /* ---------- MOVIE ---------- */
-.movie{
+/* .movie{
     grid-column: 2/12;
     display: block;
+} */
+
+.movie{
+	position:relative;
+	grid-column: 2/12;
+	height:0;
+	padding-top:75%;
+}
+.movie iframe{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+}
+
+@media screen and (min-width: 768px){
+    .movie{
+        grid-column: 3/11;
+    }
 }
 
 /* .iframe{
