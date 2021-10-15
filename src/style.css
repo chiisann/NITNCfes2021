@@ -318,18 +318,14 @@ blockquote p {
     grid-column: 1/13;
     font-size: 3rem;
     color: var(--black);
-    margin-bottom: 50vw;
+    margin-bottom: 30vw;
 }
 
 .graph-section{
     display: block;
-    /* height: 70vw; */
-    /* width: 80%; */
-    /* background-color: var(--grey); */
     text-align: center;
     /* top | right,left| bottom  */
     margin: 0 auto 20vw;
-    
 }
 
 .graph-section .num{
@@ -459,6 +455,7 @@ ul {
 }
 
 .text1{
+    top: 1%;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -501,7 +498,8 @@ ul {
     background-image: url("../static/img/oto_result.png");
 }
 .img4{
-    background-image: url("../static/img/otera.png");
+    background-image: url("../static/img/logo2020_w_trans2.png");
+    background-position: top;
 }
 .img5{
     background-image: url("../static/img/potato1.png");
@@ -515,7 +513,7 @@ ul {
     background-position: center;
 }
 .img8{
-    background-image: url("../static/img/graph2.png");
+    background-image: url("../static/img/graph3.png");
     background-position: center;
 }
 

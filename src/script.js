@@ -188,8 +188,8 @@ gltfLoader.load('/objects/japan3.gltf', function(gltf){
 tl.to(camera.position, {y: -5, ease: "power1.inOut",
     scrollTrigger: {
         trigger: ".cam1",
-        start: "top 80%",
-        end: "top 10%",
+        start: "top 90%",
+        end: "top 40%",
         toggleActions: "play pause resume reset",
         scrub: 1,
     },
@@ -218,7 +218,7 @@ tl.to(camera.position, {y: -9, ease: "power1.inOut",
     scrollTrigger: {
         trigger: ".cam2",
         start: "top 80%",
-        end: "top 10%",
+        end: "top 40%",
         toggleActions: "play pause resume reset",
         scrub: 1,
     },
@@ -240,15 +240,6 @@ gltfLoader.load('/objects/temple3.gltf', function(gltf){
     //[6] candy
 });
 
-tl.to(camera.position, {x: 5, ease: "power0.easeNone",
-    scrollTrigger: {
-        trigger: ".cam4",
-        start: "top 50%",
-        end: "bottom top",
-        toggleActions: "play pause resume reset",
-        scrub: 1,
-    },
-})
 
 
 // to truck
@@ -262,6 +253,7 @@ tl.to(camera.position, {y: -12, ease: "power0.easeNone",
     },
 })
 
+
 // [0]: 2car
 // [1]: 0road
 // [2]: 1truck
@@ -274,10 +266,11 @@ gltfLoader.load('/objects/truck3.gltf', function(gltf){
     }
     scene.add(truck);
     truck.position.set(2, -17, -1);
+    // truck.position.set(2, -12.5, -.5);
     truck.scale.set(.3, .3, .3);
     truck.rotation.set(0, Math.PI/4, 0)
 
-    tl.to(truck.position, {y: -12.5,
+    tl.to(truck.position, {y: -12.5, z: -.5, ease: "power0.easeNone",
         scrollTrigger: {
             trigger: ".cam3",
             start: "top bottom",
@@ -286,33 +279,37 @@ gltfLoader.load('/objects/truck3.gltf', function(gltf){
             scrub: 1,
         },
     })
-    tl.to(truck.position, {z: -.5, ease: "power0.easeNone",
+    // tl.to(truck.position, {z: -.5, ease: "power0.easeNone",
+    //     scrollTrigger: {
+    //         trigger: ".cam4",
+    //         start: "top bottom",
+    //         end: "top 50%",
+    //         toggleActions: "play pause resume reset",
+    //         scrub: 1,
+           
+    //     },
+    // })
+    tl.to(truck.rotation, {y: 0,ease: "power1.easeOut",
         scrollTrigger: {
             trigger: ".cam4",
             start: "top bottom",
-            end: "top 50%",
+            end: "top top",
             toggleActions: "play pause resume reset",
             scrub: 1,
         },
     })
-    tl.to(truck.rotation, {y: 0,ease: "power0.easeNone",
-        scrollTrigger: {
-            trigger: ".cam4",
-            start: "top bottom",
-            end: "top 50%",
-            toggleActions: "play pause resume reset",
-            scrub: 1,
-        },
-    })
+
+    // truck.children[2].position.set(0, 0, 0)
     
     // move X
-    tl.to(truck.children[2].position, {x: 5, ease: "power0.easeNone",
+    tl.to(truck.children[2].position, {x: 10, ease: "power4.easeIn",
         scrollTrigger: {
             trigger: ".cam4",
             start: "top 50%",
             end: "bottom top",
             toggleActions: "play pause resume reset",
             scrub: 1,
+            markers: true,
         },
     })
     tl.to(truck.children[0].position, {x: -5, ease: "power0.easeNone",
@@ -326,12 +323,24 @@ gltfLoader.load('/objects/truck3.gltf', function(gltf){
     })
 });
 
+tl.to(camera.position, {x: 5, ease: "power0.easeNone",
+    scrollTrigger: {
+        trigger: ".cam4",
+        start: "top 50%",
+        end: "bottom top",
+        toggleActions: "play pause resume reset",
+        scrub: 1,
+    },
+})
+
+
+
 // to action
-tl.to(camera.position, {y: -17, ease: "power0.easeNone",
+tl.to(camera.position, {y: -18, ease: "power1.inOut",
     scrollTrigger: {
         trigger: ".cam5",
         start: "top bottom",
-        end: "bottom top",
+        end: "top 10%",
         toggleActions: "play pause resume reset",
         scrub: 1,
     },
@@ -345,7 +354,7 @@ gltfLoader.load('/objects/action.gltf', function(gltf){
         mesh.castShadow = true;
     }
     scene.add(action);
-    action.position.set(5, -17, -1);
+    action.position.set(5, -19, -1);
     action.scale.set(2, 2, 2);
 
     //[6] candy
@@ -353,13 +362,14 @@ gltfLoader.load('/objects/action.gltf', function(gltf){
 
 
 // to end
-tl.to(camera.position, {y: -21, ease: "power1.inOut",
+tl.to(camera.position, {y: -25, ease: "power1.inOut",
     scrollTrigger: {
         trigger: ".cam6",
         start: "top bottom",
         end: "top top",
         toggleActions: "play pause resume reset",
         scrub: 1,
+        
     },
 })
 
@@ -413,7 +423,7 @@ const tick = () =>
     // [2] 2cloud
     if(-10<camera.position.y&&camera.position.y<-3){
         if(trip){
-            trip.children[1].rotation.z = 0.5 * elapsedTime
+            trip.children[1].rotation.z = -0.5 * elapsedTime
             trip.children[2].rotation.x = 0.2 * elapsedTime
 
             trip.children[0].rotation.x += 0.05 * (Math.PI- targetY -trip.children[0].rotation.x)
@@ -433,7 +443,9 @@ const tick = () =>
         if(temple){
             temple.children[1].rotation.x = 2 * Math.cos(w * elapsedTime)
             temple.children[2].rotation.x = 2 * Math.cos(w * elapsedTime)
-            temple.children[4].rotation.z = 0.5 * elapsedTime
+            temple.children[3].rotation.z = -0.5 * elapsedTime
+            temple.children[4].rotation.z = 0.4 * elapsedTime
+            temple.children[5].rotation.y = 0.2 * elapsedTime
             temple.rotation.x += 0.05 * (targetY -temple.rotation.x)
             temple.rotation.y += 0.05 * (targetX -temple.rotation.y)
             // for(const t of temple.children){
@@ -561,23 +573,23 @@ gsap.to('.bl-text2', {
     }
 });
 
-// gsap.to('.bl-wrap3',{
-//     left: "100%", 
-//     width: "150%",
-//     ease: 'Power1.easeInOut',
-//     scrollTrigger: {
-//         trigger: '.bl-wrap3',
-//         start: 'top 60%',
-//     }
-// });
-// gsap.to('.bl-text3', {
-//     opacity: 1, 
-//     delay: 0.1,
-//     scrollTrigger: {
-//         trigger: '.bl-wrap3',
-//         start: 'top 60%',
-//     }
-// });
+gsap.to('.bl-wrap3',{
+    left: "100%", 
+    width: "150%",
+    ease: 'Power1.easeInOut',
+    scrollTrigger: {
+        trigger: '.bl-wrap3',
+        start: 'top 60%',
+    }
+});
+gsap.to('.bl-text3', {
+    opacity: 1, 
+    delay: 0.1,
+    scrollTrigger: {
+        trigger: '.bl-wrap3',
+        start: 'top 60%',
+    }
+});
 
 gsap.to('.bl-wrap4',{
     left: "100%", 
@@ -686,12 +698,5 @@ gsap.to('body',{
         end: "top 10%",
         scrub: 1,
         toggleActions: "restart none reverse none",
-        markers: true,
     },
 })
-
-
-// window.onload = ()=>{
-//     const loader = document.getElementById('loader');
-//     loader.classList.add('loaded');
-// }
