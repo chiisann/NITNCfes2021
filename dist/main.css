@@ -318,18 +318,14 @@ blockquote p {
     grid-column: 1/13;
     font-size: 3rem;
     color: var(--black);
-    margin-bottom: 50vw;
+    margin-bottom: 30vw;
 }
 
 .graph-section{
     display: block;
-    /* height: 70vw; */
-    /* width: 80%; */
-    /* background-color: var(--grey); */
     text-align: center;
     /* top | right,left| bottom  */
     margin: 0 auto 20vw;
-    
 }
 
 .graph-section .num{
@@ -459,6 +455,7 @@ ul {
 }
 
 .text1{
+    top: 1%;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -501,7 +498,8 @@ ul {
     background-image: url(assets/images/7f0a2738fc7c0cdcba306350244cf806.png);
 }
 .img4{
-    background-image: url(assets/images/fdaee364b3617b4c6f100aa7d2b56eb2.png);
+    background-image: url(assets/images/376473cbd34f075d3a8dbc9977bb4e5c.png);
+    background-position: top;
 }
 .img5{
     background-image: url(assets/images/eae6db5f5fdcd60c4ab53aeccc8750ac.png);
@@ -515,7 +513,7 @@ ul {
     background-position: center;
 }
 .img8{
-    background-image: url(assets/images/035144e0f5daa72d897fdfdf27bd6ce2.png);
+    background-image: url(assets/images/f6d5f2894fbaf55a70aa49e75ba7c5fe.png);
     background-position: center;
 }
 
