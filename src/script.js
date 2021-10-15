@@ -183,7 +183,6 @@ gltfLoader.load('/objects/japan3.gltf', function(gltf){
     }
 });
 
-
 // to trip
 tl.to(camera.position, {y: -5, ease: "power1.inOut",
     scrollTrigger: {
@@ -209,9 +208,7 @@ gltfLoader.load('/objects/trip1.gltf', function(gltf){
     trip.position.set(0, -5.8, 0);
     trip.scale.set(.8, .8, .8);
     // trip.children[1].rotateY(Math.PI/2)
-    trip.children[2].rotation.set(0, 0,Math.PI/4)
 });
-
 
 // to temple
 tl.to(camera.position, {y: -9, ease: "power1.inOut",
@@ -224,8 +221,6 @@ tl.to(camera.position, {y: -9, ease: "power1.inOut",
     },
 })
 
-
-
 var temple;
 gltfLoader.load('/objects/temple3.gltf', function(gltf){
     temple = gltf.scene;
@@ -236,11 +231,10 @@ gltfLoader.load('/objects/temple3.gltf', function(gltf){
     scene.add(temple);
     temple.position.set(0, -9, 0);
     temple.scale.set(.3, .3, .3);
-
+    // temple.children[1].rotation.set(Math.PI, 0, 0)
+    // temple.children[2].rotation.set(Math.PI, 0, 0)
     //[6] candy
 });
-
-
 
 // to truck
 tl.to(camera.position, {y: -12, ease: "power0.easeNone",
@@ -252,7 +246,6 @@ tl.to(camera.position, {y: -12, ease: "power0.easeNone",
         scrub: 1,
     },
 })
-
 
 // [0]: 2car
 // [1]: 0road
@@ -323,7 +316,6 @@ tl.to(camera.position, {x: 5, ease: "power0.easeNone",
     },
 })
 
-
 // to action
 tl.to(camera.position, {y: -18, ease: "power1.inOut",
     scrollTrigger: {
@@ -348,7 +340,6 @@ gltfLoader.load('/objects/action.gltf', function(gltf){
 
     //[6] candy
 });
-
 
 // to end
 tl.to(camera.position, {y: -25, ease: "power1.inOut",
@@ -429,8 +420,8 @@ const tick = () =>
     // [6] candy
     if(-10<camera.position.y&&camera.position.y<-8){
         if(temple){
-            temple.children[1].rotation.x = 2 * Math.cos(w * elapsedTime)
-            temple.children[2].rotation.x = 2 * Math.cos(w * elapsedTime)
+            // temple.children[1].rotation.x = .5 * Math.cos(w * elapsedTime)
+            // temple.children[2].rotation.x = .5 * Math.cos(w * elapsedTime)
             temple.children[3].rotation.z = -0.5 * elapsedTime
             temple.children[4].rotation.z = 0.4 * elapsedTime
             temple.children[5].rotation.y = 0.2 * elapsedTime
@@ -443,6 +434,7 @@ const tick = () =>
 
     if(-19<camera.position.y&&camera.position.y<-15){
         if(action){
+            action.children[0].rotation.y = .5 * Math.cos(w * elapsedTime)
             action.rotation.x += 0.05 * (targetY -action.rotation.x)
             action.rotation.y += 0.05 * (targetX -action.rotation.y)
         }
