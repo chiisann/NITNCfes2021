@@ -455,7 +455,6 @@ ul {
 }
 
 .text1{
-    top: 1%;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -475,7 +474,7 @@ ul {
     background-size: contain;
     background-repeat: no-repeat; 
     height: 50vw;
-    background-position: center;
+    /* background-position: center; */
 }
 
 @media screen and (min-width: 768px){
