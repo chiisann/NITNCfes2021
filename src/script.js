@@ -279,7 +279,7 @@ gltfLoader.load('/objects/truck3.gltf', function(gltf){
             scrub: 1,
         },
     })
-    
+
     tl.to(truck.rotation, {y: 0,ease: "power1.easeOut",
         scrollTrigger: {
             trigger: ".cam4",
@@ -300,7 +300,6 @@ gltfLoader.load('/objects/truck3.gltf', function(gltf){
             end: "bottom top",
             toggleActions: "play pause resume reset",
             scrub: 1,
-            markers: true,
         },
     })
     tl.to(truck.children[0].position, {x: -5, ease: "power0.easeNone",
@@ -358,8 +357,7 @@ tl.to(camera.position, {y: -25, ease: "power1.inOut",
         start: "top bottom",
         end: "top top",
         toggleActions: "play pause resume reset",
-        scrub: 1,
-        
+        scrub: 1,   
     },
 })
 
