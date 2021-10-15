@@ -4,7 +4,6 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import * as dat from 'dat.gui'
 import { Path, PointLightHelper, SphereBufferGeometry } from 'three';
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -19,17 +18,6 @@ gsap.registerPlugin(ScrollTrigger);
 // Loading
 const textureLoader = new THREE.TextureLoader();
 const gltfLoader = new GLTFLoader();
-
-// Debug
-const gui = new dat.GUI()
-
-//-----------------------------FUNCTIONS-------------------------------
-// Random
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-}
 
 //-----------------------------SCENE-------------------------------
 
@@ -63,10 +51,6 @@ scene.add(camera)
 const hemiLight = new THREE.HemisphereLight( 0xffeeb1, 0x080820, 3 );
 scene.add( hemiLight );
 
-// const ambientLight = new THREE.AmbientLight('#2900af', 1);
-// const ambientLight = new THREE.AmbientLight('#FEED01', 1);
-// scene.add(ambientLight);
-
 // const spotLight1 = new THREE.SpotLight(0xffa95c,4);
 const spotLight1 = new THREE.SpotLight('#F8F8F8', 3, 1000);
 //spotLight1.castShadow = true;
@@ -83,15 +67,6 @@ const pointLight = new THREE.PointLight('#FEED01', 3, 1000, 1);
 pointLight.position.set(5, 50, 50);
 //pointLight.castShadow = true;
 scene.add(pointLight);
-// const pointH = new THREE.PointLightHelper(pointLight, 1)
-// scene.add(pointH)
-
-// pointLight = gui.addFolder('pointLight')
-// pointLight.add(pointLight3.position, 'x').min(-6).max(6).step(0.01)
-// pointLight.add(pointLight3.position, 'y').min(-3).max(3).step(0.01)
-// pointLight.add(pointLight3.position, 'z').min(-3).max(3).step(0.01)
-// pointLight.add(pointLight3, 'intensity').min(0).max(10).step(0.01)
-
 
 //-----------------------------SIZES-------------------------------
 
@@ -127,14 +102,6 @@ renderer.outputEncoding = THREE.GammaEncoding;
 //renderer.physicallyCorrectLights = true;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-//----------------------------- BACKGROUND OBJECTS -------------------------------
-// const geometry = new THREE.PlaneGeometry( 3, 1 );
-// const material = new THREE.MeshBasicMaterial( {color: "#F8F8F8"} );
-// const p1 = new THREE.Mesh( geometry, material );
-// scene.add( p1 );
-// p1.position.set(3, -3, -1)
-
 
 //----------------------------- OBJECTS AND ANIMATIONS -------------------------------
 let tl = gsap.timeline({
