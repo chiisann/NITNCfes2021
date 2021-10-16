@@ -397,9 +397,18 @@ ul {
     transition: 200ms;
     border-radius: 2rem;
     margin-bottom: 50vw;
+    position: relative;
 }
 .donate-btn:hover{
     opacity: 50%;
+}
+
+.donate-btn a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height:100%;
+    width: 100%;
 }
 .donate-btn a:hover{
     opacity: 1;
@@ -536,12 +545,6 @@ ul {
     display: block;
     grid-column: 1/13;
 }
-
-/* .backToggle{
-    grid-column: 1/13;
-    display: block;
-    height: 5vw;
-} */
 
 /* ---------- INTRO ---------- */
 
