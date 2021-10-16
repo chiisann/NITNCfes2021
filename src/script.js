@@ -174,6 +174,7 @@ gltfLoader.load('/objects/trip1.gltf', function(gltf){
     scene.add(trip);
     trip.position.set(0, -5.8, 0);
     trip.scale.set(.8, .8, .8);
+    trip.children[0].position.y -= 0.05;
     // trip.children[1].rotateY(Math.PI/2)
 });
 
@@ -198,8 +199,6 @@ gltfLoader.load('/objects/temple3.gltf', function(gltf){
     scene.add(temple);
     temple.position.set(0, -9, 0);
     temple.scale.set(.3, .3, .3);
-    // temple.children[1].rotation.set(Math.PI, 0, 0)
-    // temple.children[2].rotation.set(Math.PI, 0, 0)
     //[6] candy
 });
 
@@ -520,23 +519,23 @@ gsap.to('.bl-text2', {
     }
 });
 
-gsap.to('.bl-wrap3',{
-    left: "100%", 
-    width: "150%",
-    ease: 'Power1.easeInOut',
-    scrollTrigger: {
-        trigger: '.bl-wrap3',
-        start: 'top 60%',
-    }
-});
-gsap.to('.bl-text3', {
-    opacity: 1, 
-    delay: 0.1,
-    scrollTrigger: {
-        trigger: '.bl-wrap3',
-        start: 'top 60%',
-    }
-});
+// gsap.to('.bl-wrap3',{
+//     left: "100%", 
+//     width: "150%",
+//     ease: 'Power1.easeInOut',
+//     scrollTrigger: {
+//         trigger: '.bl-wrap3',
+//         start: 'top 60%',
+//     }
+// });
+// gsap.to('.bl-text3', {
+//     opacity: 1, 
+//     delay: 0.1,
+//     scrollTrigger: {
+//         trigger: '.bl-wrap3',
+//         start: 'top 60%',
+//     }
+// });
 
 gsap.to('.bl-wrap4',{
     left: "100%", 
