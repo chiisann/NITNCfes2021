@@ -384,7 +384,7 @@ const tick = () =>
     // [4] box
     // [5] pack
     // [6] candy
-    if(-10<camera.position.y&&camera.position.y<-8){
+    if(-12<camera.position.y&&camera.position.y<-8){
         if(temple){
             // temple.children[1].rotation.x = .5 * Math.cos(w * elapsedTime)
             // temple.children[2].rotation.x = .5 * Math.cos(w * elapsedTime)
