@@ -357,7 +357,6 @@ const tick = () =>
         if(japan){
             japan.rotation.x += 0.05 * (Math.PI/3- targetY -japan.rotation.x)
             japan.rotation.y += 0.05 * (targetX -japan.rotation.y)
-            // japan.position.z += -0.05 * (targetY -japan.rotation.x)
             japan.children[8].position.x = -x;
             japan.children[7].position.x = x;
         }
@@ -370,14 +369,13 @@ const tick = () =>
         if(trip){
             trip.children[1].rotation.z = -0.5 * elapsedTime
             trip.children[2].rotation.x = 0.2 * elapsedTime
-
             trip.children[0].rotation.x += 0.05 * (Math.PI- targetY -trip.children[0].rotation.x)
             trip.children[0].rotation.y += 0.05 * (targetX -trip.children[0].rotation.y)
             trip.children[0].position.x += 0.02 * (targetX - trip.children[0].rotation.y)
         }
     }
 
-        // temple
+    // temple
     // [1] hand
     // [2] hand
     // [3] spiral candy
@@ -386,15 +384,11 @@ const tick = () =>
     // [6] candy
     if(-12<camera.position.y&&camera.position.y<-8){
         if(temple){
-            // temple.children[1].rotation.x = .5 * Math.cos(w * elapsedTime)
-            // temple.children[2].rotation.x = .5 * Math.cos(w * elapsedTime)
             temple.children[3].rotation.z = -0.5 * elapsedTime
             temple.children[4].rotation.z = 0.4 * elapsedTime
             temple.children[5].rotation.y = 0.2 * elapsedTime
             temple.rotation.x += 0.05 * (targetY -temple.rotation.x)
             temple.rotation.y += 0.05 * (targetX -temple.rotation.y)
-            // for(const t of temple.children){
-            // }
         }
     }
 
