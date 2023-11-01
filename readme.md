@@ -1,4 +1,4 @@
-# NITNC Fes2021
+# NITNC Fes2021 - WebGL
 Three.js & WebGL
 
 I developed it for NITNC School Festival 2021.
